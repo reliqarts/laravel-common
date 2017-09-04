@@ -12,7 +12,7 @@ Tiny Laravel 5 package to provide simple, somewhat commonly needed helper functi
 Install via composer:
 
 ```php
-composer require reliqarts/laravel-simple-commons
+composer require reliqarts/simple-commons
 ```
 
 Add service provider:
