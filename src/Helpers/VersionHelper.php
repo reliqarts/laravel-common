@@ -17,8 +17,9 @@ class VersionHelper
     public static function getBuildNumber()
     {
         $buildFile = Config::get('simplecommons.files.build');
+        
         try {
-            $buildNumber = File::get($buildFile);
+            $buildNumber = File::get(base_path($buildFile));
         } catch (Exception $exception) {
             $buildNumber = 'x';
             Log::warning("SC build number file ({$buildFile}) doesn't exist");
@@ -35,8 +36,9 @@ class VersionHelper
     public static function getVersionNumber()
     {
         $versionFile = Config::get('simplecommons.files.version');
+
         try {
-            $versionNumber = File::get($versionFile);
+            $versionNumber = File::get(base_path($versionFile));
         } catch (Exception $exception) {
             $versionNumber = 'unknown';
             Log::warning("SC version file ({$versionFile}) doesn't exist");
@@ -55,18 +57,11 @@ class VersionHelper
     public static function getVersion($includeBuild = true)
     {
         $version = self::getVersionNumber();
+        
         if ($includeBuild) {
             $version = "$version.".self::getBuildNumber();
         }
 
         return $version;
-    }
-
-    /**
-     * Get guided imageables table.
-     */
-    public static function getImageablesTable()
-    {
-        return Config::get('simplecommons.files.build', 'imageables');
     }
 }

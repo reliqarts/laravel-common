@@ -33,13 +33,25 @@ class SimpleCommonsServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register Configuraion.
+     */
+    protected function handleConfig()
+    {
+        // merge config
+        $this->mergeConfigFrom("$this->assetsDir/config/config.php", 'simplecommons');
+    }
+    
+    /**
      * Bootstrap the application events.
      *
      * @return void
      */
     public function boot()
     {
-        // ...
+        // register config
+        $this->handleConfig();
+        // publish assets
+        $this->handleAssets();
     }
 
     /**
