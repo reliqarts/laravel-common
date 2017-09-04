@@ -24,7 +24,7 @@ class VersionHelper
             Log::warning("SC build number file ({$buildFile}) doesn't exist");
         }
 
-        return $buildNumber;
+        return preg_replace('/[\s\r\n]/', '', $buildNumber);
     }
 
     /**
@@ -43,7 +43,7 @@ class VersionHelper
             Log::warning("SC version file ({$versionFile}) doesn't exist");
         }
 
-        return $versionNumber;
+        return preg_replace('/[\s\r\n]/', '', $versionNumber);
     }
 
     /**
