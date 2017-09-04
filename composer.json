@@ -1,5 +1,5 @@
 {
-	"name": "reliqarts/laravel-simple-commons",
+	"name": "reliqarts/simple-commons",
 	"description": "Tiny Laravel 5 package to provide simple, somewhat commonly needed helper functions.",
 	"keywords": ["laravel", "simple", "common", "helpers", "functions", "global"],
 	"type": "package",
