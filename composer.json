@@ -1,0 +1,32 @@
+{
+	"name": "reliqarts/laravel-simple-commons",
+	"description": "Tiny Laravel 5 package to provide simple, somewhat commonly needed helper functions.",
+	"keywords": ["laravel", "simple", "common", "helpers", "functions", "global"],
+	"type": "package",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "ReliQ",
+			"email": "reliq@reliqarts.com"
+		}
+	],
+	"require": {
+		"php": ">=5.6.4",
+		"illuminate/support": "5.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"ReliQArts\\SimpleCommons\\": "src/"
+		}
+	},
+	"extra": {
+        "laravel": {
+            "providers": [
+                "ReliQArts\\SimpleCommons\\SimpleCommonsServiceProvider"
+			],
+			"aliases": {
+				"SCVersionHelper": "ReliQArts\\SimpleCommons\\Helpers\\VersionHelper"
+			}
+        }
+    }
+}
