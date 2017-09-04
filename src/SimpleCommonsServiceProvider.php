@@ -2,6 +2,7 @@
 
 namespace ReliQArts\SimpleCommons;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use ReliQArts\SimpleCommons\Http\Middleware\SimpleCommons;
 
