@@ -4,8 +4,8 @@ namespace ReliQArts\SimpleCommons\Helpers;
 
 use File;
 use Config;
+use Exception;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Filesystem\FileNotFoundException;
 
 class VersionHelper
 {
@@ -19,7 +19,7 @@ class VersionHelper
         $buildFile = Config::get('simplecommons.files.build');
         try {
             $buildNumber = File::get($buildFile);
-        } catch (FileNotFoundException $exception) {
+        } catch (Exception $exception) {
             $buildNumber = 'x';
             Log::warning("SC build number file ({$buildFile}) doesn't exist");
         }
@@ -37,7 +37,7 @@ class VersionHelper
         $versionFile = Config::get('simplecommons.files.version');
         try {
             $versionNumber = File::get($versionFile);
-        } catch (FileNotFoundException $exception) {
+        } catch (Exception $exception) {
             $versionNumber = 'unknown';
             Log::warning("SC version file ({$versionFile}) doesn't exist");
         }
