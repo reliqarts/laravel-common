@@ -4,7 +4,6 @@ namespace ReliQArts\SimpleCommons;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use ReliQArts\SimpleCommons\Http\Middleware\SimpleCommons;
 
 class SimpleCommonsServiceProvider extends ServiceProvider
 {
@@ -13,7 +12,7 @@ class SimpleCommonsServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
 
     /**
      * Assets location.

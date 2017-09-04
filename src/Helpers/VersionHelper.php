@@ -17,7 +17,6 @@ class VersionHelper
     public static function getBuildNumber()
     {
         $buildFile = Config::get('simplecommons.files.build');
-        
         try {
             $buildNumber = File::get(base_path($buildFile));
         } catch (Exception $exception) {
