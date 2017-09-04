@@ -14,7 +14,7 @@ class VersionHelper
      *
      * @return string
      */
-    public function getBuildNumber()
+    public static function getBuildNumber()
     {
         $buildFile = Config::get('simplecommons.files.build');
         try {
@@ -32,7 +32,7 @@ class VersionHelper
      *
      * @return string
      */
-    public function getVersionNumber()
+    public static function getVersionNumber()
     {
         $versionFile = Config::get('simplecommons.files.version');
         try {
