@@ -15,7 +15,7 @@ Reliq Arts' base/common classes and functions for Laravel 5.
 Install via composer:
 
 ```php
-composer require reliqarts/common
+composer require reliqarts/laravel-common
 ```
 
 Add service provider:

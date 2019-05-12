@@ -8,10 +8,10 @@ use Monolog\Handler\StreamHandler;
 
 class ServiceProvider extends BaseServiceProvider
 {
-    private const CONFIG_KEY = 'reliqarts-common';
-    private const ASSET_DIRECTORY = __DIR__ . '/..';
-    private const LOGGER_NAME = 'reliqarts-common-logger';
-    private const LOG_FILENAME = self::CONFIG_KEY;
+    protected const CONFIG_KEY = 'reliqarts-common';
+    protected const ASSET_DIRECTORY = __DIR__ . '/..';
+    protected const LOGGER_NAME = 'reliqarts-common-logger';
+    protected const LOG_FILENAME = self::CONFIG_KEY;
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -81,7 +81,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * Register Configuration.
      */
-    private function handleConfig()
+    protected function handleConfig()
     {
         $configKey = $this->getConfigKey();
         $config = sprintf('%s/config/config.php', $this->getAssetDirectory());
@@ -98,7 +98,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * @return self
      */
-    private function registerBindings(): self
+    protected function registerBindings(): self
     {
         $this->app->singleton(
             Contracts\ConfigProvider::class,
