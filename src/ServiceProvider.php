@@ -81,7 +81,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * Register Configuration.
      */
-    protected function handleConfig()
+    protected function handleConfig(): void
     {
         $configKey = $this->getConfigKey();
         $config = sprintf('%s/config/config.php', $this->getAssetDirectory());
@@ -95,10 +95,7 @@ class ServiceProvider extends BaseServiceProvider
         );
     }
 
-    /**
-     * @return self
-     */
-    protected function registerBindings(): self
+    protected function registerBindings(): void
     {
         $this->app->singleton(
             Contracts\ConfigProvider::class,
@@ -130,7 +127,5 @@ class ServiceProvider extends BaseServiceProvider
                 return $logger;
             }
         );
-
-        return $this;
     }
 }
