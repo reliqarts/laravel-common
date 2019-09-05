@@ -14,8 +14,8 @@
     "reliqarts/simple-commons": "1.*"
   },
   "require": {
-    "php": ">=7.1.3",
-    "illuminate/support": "^5.7",
+    "php": "^7.2",
+    "illuminate/support": "^5.7|^6.0",
     "monolog/monolog": "^1.24",
     "ext-json": "*",
     "illuminate/filesystem": "^5.8"
