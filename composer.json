@@ -17,8 +17,7 @@
     "php": "^7.2",
     "illuminate/support": "^5.7|^6.0",
     "monolog/monolog": "^1.24",
-    "ext-json": "*",
-    "illuminate/filesystem": "^5.8"
+    "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.0",
