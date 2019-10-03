@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\VO;
+namespace ReliqArts;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
@@ -10,6 +10,11 @@ use JsonSerializable;
 
 class Result implements Arrayable, Jsonable, JsonSerializable
 {
+    private const KEY_SUCCESS = 'success';
+    private const KEY_ERROR = 'error';
+    private const KEY_MESSAGES = 'messages';
+    private const KEY_DATA = 'data';
+
     /**
      * @var bool
      */
@@ -169,7 +174,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
@@ -179,9 +184,14 @@ class Result implements Arrayable, Jsonable, JsonSerializable
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
-        return (array)$this;
+        return [
+            self::KEY_SUCCESS => $this->success,
+            self::KEY_ERROR => $this->error,
+            self::KEY_MESSAGES => $this->messages,
+            self::KEY_DATA => $this->data,
+        ];
     }
 
     /**
@@ -191,7 +201,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
      *
      * @return string
      */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->jsonSerialize(), $options);
     }
