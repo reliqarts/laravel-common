@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ReliqArts;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
@@ -33,7 +35,36 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->registerBindings();
+        $this->app->singleton(
+            Contracts\ConfigProvider::class,
+            function (): Contracts\ConfigProvider {
+                return new Services\ConfigProvider(
+                    resolve(ConfigRepository::class),
+                    self::CONFIG_KEY
+                );
+            }
+        );
+
+        $this->app->singleton(
+            Contracts\Filesystem::class,
+            Services\Filesystem::class
+        );
+
+        $this->app->singleton(
+            Contracts\VersionProvider::class,
+            Services\VersionProvider::class
+        );
+
+        $this->app->singleton(
+            Contracts\Logger::class,
+            function (): Contracts\Logger {
+                $logger = new Services\Logger($this->getLoggerName());
+                $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
+                $logger->pushHandler(new StreamHandler($logFile, Services\Logger::DEBUG));
+
+                return $logger;
+            }
+        );
     }
 
     /**
@@ -92,40 +123,6 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishes(
             [$config => config_path(sprintf('%s.php', $configKey))],
             sprintf('%s-config', $configKey)
-        );
-    }
-
-    protected function registerBindings(): void
-    {
-        $this->app->singleton(
-            Contracts\ConfigProvider::class,
-            function (): Contracts\ConfigProvider {
-                return new Services\ConfigProvider(
-                    resolve(ConfigRepository::class),
-                    $this->getConfigKey()
-                );
-            }
-        );
-
-        $this->app->singleton(
-            Contracts\Filesystem::class,
-            Services\Filesystem::class
-        );
-
-        $this->app->singleton(
-            Contracts\VersionProvider::class,
-            Services\VersionProvider::class
-        );
-
-        $this->app->singleton(
-            Contracts\Logger::class,
-            function (): Contracts\Logger {
-                $logger = new Services\Logger($this->getLoggerName());
-                $logFile = storage_path(sprintf('logs/%s.log', $this->getLogFilename()));
-                $logger->pushHandler(new StreamHandler($logFile, Services\Logger::DEBUG));
-
-                return $logger;
-            }
         );
     }
 }
