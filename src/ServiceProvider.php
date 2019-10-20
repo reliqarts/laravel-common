@@ -25,7 +25,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * Bootstrap the application events.
      */
-    public function boot()
+    public function boot(): void
     {
         $this->handleConfig();
     }
@@ -33,7 +33,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * Register the service provider.
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(
             Contracts\ConfigProvider::class,
@@ -72,7 +72,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [];
     }
