@@ -4,21 +4,21 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Tests\Unit\Services;
+namespace ReliqArts\Tests\Unit\Service;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
-use ReliqArts\Contracts\ConfigProvider;
-use ReliqArts\Contracts\Filesystem;
-use ReliqArts\Contracts\Logger;
-use ReliqArts\Services\VersionProvider;
+use ReliqArts\Contract\ConfigProvider;
+use ReliqArts\Contract\Filesystem;
+use ReliqArts\Contract\Logger;
+use ReliqArts\Service\VersionProvider;
 use ReliqArts\Tests\TestCase;
 
 /**
  * Class VersionProviderTest.
  *
- * @coversDefaultClass \ReliqArts\Services\VersionProvider
+ * @coversDefaultClass \ReliqArts\Service\VersionProvider
  *
  * @internal
  */

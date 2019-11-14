@@ -36,9 +36,9 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->app->singleton(
-            Contracts\ConfigProvider::class,
-            function (): Contracts\ConfigProvider {
-                return new Services\ConfigProvider(
+            Contract\ConfigProvider::class,
+            function (): Contract\ConfigProvider {
+                return new Service\ConfigProvider(
                     resolve(ConfigRepository::class),
                     self::CONFIG_KEY
                 );
@@ -46,21 +46,21 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->app->singleton(
-            Contracts\Filesystem::class,
-            Services\Filesystem::class
+            Contract\Filesystem::class,
+            Service\Filesystem::class
         );
 
         $this->app->singleton(
-            Contracts\VersionProvider::class,
-            Services\VersionProvider::class
+            Contract\VersionProvider::class,
+            Service\VersionProvider::class
         );
 
         $this->app->singleton(
-            Contracts\Logger::class,
-            function (): Contracts\Logger {
-                $logger = new Services\Logger($this->getLoggerName());
+            Contract\Logger::class,
+            function (): Contract\Logger {
+                $logger = new Service\Logger($this->getLoggerName());
                 $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
-                $logger->pushHandler(new StreamHandler($logFile, Services\Logger::DEBUG));
+                $logger->pushHandler(new StreamHandler($logFile, Service\Logger::DEBUG));
 
                 return $logger;
             }

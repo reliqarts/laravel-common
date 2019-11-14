@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Tests\Unit\Services;
+namespace ReliqArts\Tests\Unit\Service;
 
 use AspectMock\Test;
-use ReliqArts\Services\Filesystem;
+use ReliqArts\Service\Filesystem;
 use ReliqArts\Tests\Unit\AspectMockedTestCase;
 
 /**
  * Class FilesystemTest.
  *
- * @coversDefaultClass \ReliqArts\Services\Filesystem
+ * @coversDefaultClass \ReliqArts\Service\Filesystem
  *
  * @internal
  */
@@ -26,7 +26,7 @@ final class FilesystemTest extends AspectMockedTestCase
     {
         parent::setUp();
 
-        $this->namespace = '\ReliqArts\Services';
+        $this->namespace = '\ReliqArts\Service';
         $this->parentNamespace = '\Illuminate\Filesystem';
         $this->filesystem = new Filesystem();
     }

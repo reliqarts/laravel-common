@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Services;
+namespace ReliqArts\Service;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use ReliqArts\Contracts\ConfigProvider;
-use ReliqArts\Contracts\Filesystem;
-use ReliqArts\Contracts\Logger;
-use ReliqArts\Contracts\VersionProvider as VersionProviderContract;
+use ReliqArts\Contract\ConfigProvider;
+use ReliqArts\Contract\Filesystem;
+use ReliqArts\Contract\Logger;
+use ReliqArts\Contract\VersionProvider as VersionProviderContract;
 
 class VersionProvider implements VersionProviderContract
 {

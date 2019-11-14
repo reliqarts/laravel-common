@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Services;
+namespace ReliqArts\Service;
 
 use Illuminate\Contracts\Config\Repository;
-use ReliqArts\Contracts\ConfigProvider as ConfigProviderContract;
+use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
 
 class ConfigProvider implements ConfigProviderContract
 {

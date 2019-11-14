@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Contracts;
+namespace ReliqArts\Contract;
 
 use Psr\Log\LoggerInterface;
 

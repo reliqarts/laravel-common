@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Services;
+namespace ReliqArts\Service;
 
 use Monolog\Logger as BaseLogger;
-use ReliqArts\Contracts\Logger as LoggerContract;
+use ReliqArts\Contract\Logger as LoggerContract;
 
 class Logger extends BaseLogger implements LoggerContract
 {

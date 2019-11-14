@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Services;
+namespace ReliqArts\Service;
 
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
-use ReliqArts\Contracts\Filesystem as FilesystemContract;
+use ReliqArts\Contract\Filesystem as FilesystemContract;
 
 class Filesystem extends BaseFilesystem implements FilesystemContract
 {

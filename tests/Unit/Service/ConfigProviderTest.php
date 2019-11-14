@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Tests\Unit\Services;
+namespace ReliqArts\Tests\Unit\Service;
 
 use Illuminate\Contracts\Config\Repository;
 use Prophecy\Prophecy\ObjectProphecy;
-use ReliqArts\Services\ConfigProvider;
+use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Tests\TestCase;
 
 /**
  * Class ConfigProviderTest.
  *
- * @coversDefaultClass \ReliqArts\Services\ConfigProvider
+ * @coversDefaultClass \ReliqArts\Service\ConfigProvider
  *
  * @internal
  */
