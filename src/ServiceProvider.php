@@ -28,6 +28,7 @@ class ServiceProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->handleConfig();
+        $this->handleViews();
     }
 
     /**
@@ -117,12 +118,25 @@ class ServiceProvider extends BaseServiceProvider
         $configKey = $this->getConfigKey();
         $config = sprintf('%s/config/config.php', $this->getAssetDirectory());
 
-        // merge config
         $this->mergeConfigFrom($config, $configKey);
-
         $this->publishes(
             [$config => config_path(sprintf('%s.php', $configKey))],
             sprintf('%s-config', $configKey)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    private function handleViews(): void
+    {
+        $configKey = $this->getConfigKey();
+        $viewsDirectory = sprintf('%s/resources/views', $this->getAssetDirectory());
+
+        $this->loadViewsFrom($viewsDirectory, $configKey);
+        $this->publishes(
+            [$viewsDirectory => base_path(sprintf("resources/views/vendor/%s", $configKey))],
+            sprintf('%s-views', $configKey)
         );
     }
 }
