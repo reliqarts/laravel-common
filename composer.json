@@ -1,6 +1,6 @@
 {
   "name": "reliqarts/laravel-common",
-  "description": "Reliq Arts' base/common classes and functions for Laravel 5.",
+  "description": "Reliq Arts' base/common classes and functions for Laravel 6.",
   "keywords": ["laravel", "simple", "common", "helpers", "functions", "global"],
   "type": "package",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "reliqarts/simple-commons": "1.*"
   },
   "require": {
-    "php": "^7.2",
+    "php": "^7.4",
     "illuminate/support": "^5.7|^6.0",
     "monolog/monolog": "^1.24",
     "ext-json": "*",
@@ -38,7 +38,8 @@
         "ReliqArts\\ServiceProvider"
       ],
       "aliases": {
-        "CommonVersionProvider": "ReliqArts\\Services\\VersionProvider"
+        "CommonDateHelper": "ReliqArts\\Helper\\Date",
+        "CommonVersionProvider": "ReliqArts\\Service\\VersionProvider"
       }
     }
   }

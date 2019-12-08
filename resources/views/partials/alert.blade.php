@@ -6,7 +6,7 @@
     $alertMessage = $alertMessage ?? $message ?? 'No message passed into alert component!';
 @endphp
 <div
-    class="bg-{{ $alertColor }}-lightest border border-t-4 border-{{ $alertColor }} rounded-b text-{{ $alertColor }}-darkest px-4 py-2"
+    class="bg-{{ $alertColor }}-100 border border-t-4 border-{{ $alertColor }}-700 rounded-b text-{{ $alertColor }}-700 px-4 py-2"
     role="alert">
     <div class="flex">
         @if($alertWithIcon)

@@ -50,8 +50,8 @@
             @else
                 <input id="{{ $fieldName }}" type="{{ $fieldType }}"
                        class="block bg-white border-2 rounded p-2 w-full focus:outline-none{{ $fieldHasError
-               ? ' text-white border-red bg-red-light hover:border-red shadow-inner rounded-b-none'
-               : ' hover:border-teal focus:border-teal focus:bg-teal-lightest' }}" {!! implode(' ', $fieldAttributes) !!}>
+               ? ' text-white border-red-700 bg-red-light hover:border-red-800 shadow-inner rounded-b-none'
+               : ' hover:border-teal-600 focus:border-teal-600 focus:bg-teal-100' }}" {!! implode(' ', $fieldAttributes) !!}>
             @endif
         @endif
         @if($fieldHasError)
