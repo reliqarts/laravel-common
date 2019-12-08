@@ -18,29 +18,25 @@ class VersionProvider implements VersionProviderContract
     /**
      * @var ConfigProvider
      */
-    protected $configProvider;
+    protected ConfigProvider $configProvider;
 
     /**
      * @var Filesystem
      */
-    protected $filesystem;
+    protected Filesystem $filesystem;
 
     /**
      * @var Logger
      */
-    protected $logger;
+    protected Logger $logger;
 
     /**
      * @var string[]
      */
-    private $warningsLogged;
+    private array $warningsLogged;
 
     /**
      * VersionProvider constructor.
-     *
-     * @param ConfigProvider $configProvider
-     * @param Filesystem     $filesystem
-     * @param Logger         $logger
      */
     public function __construct(ConfigProvider $configProvider, Filesystem $filesystem, Logger $logger)
     {
@@ -52,8 +48,6 @@ class VersionProvider implements VersionProviderContract
 
     /**
      * Get application build number.
-     *
-     * @return string
      */
     public function getBuildNumber(): string
     {
@@ -77,8 +71,6 @@ class VersionProvider implements VersionProviderContract
 
     /**
      * Get application version number.
-     *
-     * @return string
      */
     public function getVersionNumber(): string
     {
@@ -104,8 +96,6 @@ class VersionProvider implements VersionProviderContract
      * Get current application version.
      *
      * @param bool $includeBuildNumber
-     *
-     * @return string
      */
     public function getVersion($includeBuildNumber = true): string
     {
@@ -118,11 +108,6 @@ class VersionProvider implements VersionProviderContract
         return $version;
     }
 
-    /**
-     * @param string $text
-     *
-     * @return string
-     */
     private function cleanText(string $text): string
     {
         $pattern = '/[\s\r\n]/';
@@ -130,9 +115,6 @@ class VersionProvider implements VersionProviderContract
         return preg_replace($pattern, '', $text);
     }
 
-    /**
-     * @param string $message
-     */
     private function logWarning(string $message): void
     {
         if (in_array($message, $this->warningsLogged, true)) {

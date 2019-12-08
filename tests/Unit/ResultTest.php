@@ -8,9 +8,11 @@ use ReliqArts\Result;
 use ReliqArts\Tests\TestCase;
 
 /**
- * Class ResultTest
+ * Class ResultTest.
  *
  * @coversDefaultClass \ReliqArts\Result
+ *
+ * @internal
  */
 final class ResultTest extends TestCase
 {

@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUndefinedMethodInspection */
+<?php
+
+/** @noinspection PhpUndefinedMethodInspection */
 
 declare(strict_types=1);
 
@@ -8,15 +10,6 @@ use Illuminate\Support\Str;
 
 trait HasUUID
 {
-    protected static function bootHasUUID()
-    {
-        static::creating(function ($model) {
-            if (!$model->getKey()) {
-                $model->{$model->getKeyName()} = (string)Str::uuid();
-            }
-        });
-    }
-
     public function getIncrementing()
     {
         return false;
@@ -25,5 +18,14 @@ trait HasUUID
     public function getKeyType()
     {
         return 'string';
+    }
+
+    protected static function bootHasUUID()
+    {
+        static::creating(function ($model) {
+            if (!$model->getKey()) {
+                $model->{$model->getKeyName()} = (string)Str::uuid();
+            }
+        });
     }
 }

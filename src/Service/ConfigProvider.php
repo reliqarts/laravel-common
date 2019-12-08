@@ -12,18 +12,15 @@ class ConfigProvider implements ConfigProviderContract
     /**
      * @var Repository
      */
-    protected $repository;
+    protected Repository $repository;
 
     /**
      * @var string
      */
-    protected $namespace;
+    protected string $namespace;
 
     /**
      * ConfigProvider constructor.
-     *
-     * @param Repository $repository
-     * @param string     $namespace
      */
     public function __construct(Repository $repository, string $namespace)
     {
@@ -32,8 +29,7 @@ class ConfigProvider implements ConfigProviderContract
     }
 
     /**
-     * @param null|string $key
-     * @param mixed       $default
+     * @param mixed $default
      *
      * @return mixed
      */

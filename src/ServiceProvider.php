@@ -16,13 +16,6 @@ class ServiceProvider extends BaseServiceProvider
     protected const LOG_FILENAME = self::CONFIG_KEY;
 
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
      * Bootstrap the application events.
      */
     public function boot(): void
@@ -70,41 +63,27 @@ class ServiceProvider extends BaseServiceProvider
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
     public function provides(): array
     {
         return [];
     }
 
-    /**
-     * @return string
-     */
     protected function getAssetDirectory(): string
     {
         return static::ASSET_DIRECTORY;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigKey(): string
     {
         return static::CONFIG_KEY;
     }
 
-    /**
-     * @return string
-     */
     protected function getLogFilename(): string
     {
         return static::LOG_FILENAME;
     }
 
-    /**
-     * @return string
-     */
     protected function getLoggerName(): string
     {
         return static::LOGGER_NAME;
@@ -125,9 +104,6 @@ class ServiceProvider extends BaseServiceProvider
         );
     }
 
-    /**
-     * @return void
-     */
     private function handleViews(): void
     {
         $configKey = $this->getConfigKey();
@@ -135,7 +111,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->loadViewsFrom($viewsDirectory, $configKey);
         $this->publishes(
-            [$viewsDirectory => base_path(sprintf("resources/views/vendor/%s", $configKey))],
+            [$viewsDirectory => base_path(sprintf('resources/views/vendor/%s', $configKey))],
             sprintf('%s-views', $configKey)
         );
     }
