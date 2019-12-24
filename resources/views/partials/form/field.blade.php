@@ -40,7 +40,7 @@
         @if($fieldType === 'checkbox')
             <label for="{{ $fieldName }}" class="block mt-2 text-sm font-bold">
                 <input id="{{ $fieldName }}" name="{{ $fieldName }}" class="mr-2 align-middle inline-block"
-                       type="checkbox" {{ old($fieldName) ? 'checked' : '' }} />
+                       type="checkbox" {{ (($$fieldName ??= false) || old($fieldName)) ? 'checked' : '' }} />
                 <span class="align-middle inline-block">{{ __($fieldLabel) }}</span>
             </label>
         @else
@@ -50,7 +50,7 @@
             @else
                 <input id="{{ $fieldName }}" type="{{ $fieldType }}"
                        class="block bg-white border-2 rounded p-2 w-full focus:outline-none{{ $fieldHasError
-               ? ' text-white border-red-700 bg-red-light hover:border-red-800 shadow-inner rounded-b-none'
+               ? ' text-red-500 border-red-700 bg-red-light hover:border-red-800 shadow-inner rounded-b-none'
                : ' hover:border-teal-600 focus:border-teal-600 focus:bg-teal-100' }}" {!! implode(' ', $fieldAttributes) !!}>
             @endif
         @endif

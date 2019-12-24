@@ -7,6 +7,14 @@ namespace ReliqArts;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Monolog\Handler\StreamHandler;
+use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
+use ReliqArts\Contract\Filesystem as FilesystemContract;
+use ReliqArts\Contract\Logger as LoggerContract;
+use ReliqArts\Contract\VersionProvider as VersionProviderContract;
+use ReliqArts\Service\ConfigProvider;
+use ReliqArts\Service\Filesystem;
+use ReliqArts\Service\Logger;
+use ReliqArts\Service\VersionProvider;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -30,31 +38,29 @@ class ServiceProvider extends BaseServiceProvider
     public function register(): void
     {
         $this->app->singleton(
-            Contract\ConfigProvider::class,
-            function (): Contract\ConfigProvider {
-                return new Service\ConfigProvider(
-                    resolve(ConfigRepository::class),
-                    self::CONFIG_KEY
-                );
-            }
+            ConfigProviderContract::class,
+            static fn (): ConfigProviderContract => new ConfigProvider(
+                resolve(ConfigRepository::class),
+                self::CONFIG_KEY
+            )
         );
 
         $this->app->singleton(
-            Contract\Filesystem::class,
-            Service\Filesystem::class
+            FilesystemContract::class,
+            Filesystem::class
         );
 
         $this->app->singleton(
-            Contract\VersionProvider::class,
-            Service\VersionProvider::class
+            VersionProviderContract::class,
+            VersionProvider::class
         );
 
         $this->app->singleton(
-            Contract\Logger::class,
-            function (): Contract\Logger {
-                $logger = new Service\Logger($this->getLoggerName());
+            LoggerContract::class,
+            static function (): LoggerContract {
+                $logger = new Logger($this->getLoggerName());
                 $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
-                $logger->pushHandler(new StreamHandler($logFile, Service\Logger::DEBUG));
+                $logger->pushHandler(new StreamHandler($logFile, Logger::DEBUG));
 
                 return $logger;
             }
@@ -66,7 +72,12 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function provides(): array
     {
-        return [];
+        return [
+            ConfigProviderContract::class,
+            FilesystemContract::class,
+            VersionProviderContract::class,
+            LoggerContract::class,
+        ];
     }
 
     protected function getAssetDirectory(): string

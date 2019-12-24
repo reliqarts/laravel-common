@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ReliqArts\Tests\Unit\Service;
 
 use AspectMock\Test;
+use Exception;
 use ReliqArts\Service\Filesystem;
 use ReliqArts\Tests\Unit\AspectMockedTestCase;
 
@@ -20,7 +21,7 @@ final class FilesystemTest extends AspectMockedTestCase
     /**
      * @var Filesystem
      */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     protected function setUp(): void
     {
@@ -36,6 +37,8 @@ final class FilesystemTest extends AspectMockedTestCase
      * @small
      * @preserveGlobalState disabled
      * @runInSeparateProcess
+     *
+     * @throws Exception
      */
     public function testDeleteDirectory(): void
     {

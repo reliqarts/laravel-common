@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace ReliqArts\Tests\Unit\Service;
 
+use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -31,23 +32,26 @@ final class VersionProviderTest extends TestCase
     /**
      * @var ConfigProvider|ObjectProphecy
      */
-    private $configProvider;
+    private ObjectProphecy $configProvider;
 
     /**
      * @var Filesystem|ObjectProphecy
      */
-    private $filesystem;
+    private ObjectProphecy $filesystem;
 
     /**
      * @var Logger|ObjectProphecy
      */
-    private $logger;
+    private ObjectProphecy $logger;
 
     /**
      * @var VersionProvider
      */
-    private $subject;
+    private VersionProvider $subject;
 
+    /**
+     * @throws Exception
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -72,7 +76,7 @@ final class VersionProviderTest extends TestCase
      * @covers ::cleanText
      * @covers ::getBuildNumber
      *
-     * @throws FileNotFoundException
+     * @throws Exception
      */
     public function testGetBuildNumber(): void
     {
@@ -96,7 +100,7 @@ final class VersionProviderTest extends TestCase
      * @covers ::getBuildNumber
      * @covers ::logWarning
      *
-     * @throws FileNotFoundException
+     * @throws Exception
      */
     public function testGetBuildNumberWhenBuildNumberFileDoesNotExist(): void
     {
@@ -129,7 +133,7 @@ final class VersionProviderTest extends TestCase
      * @covers ::cleanText
      * @covers ::getVersionNumber
      *
-     * @throws FileNotFoundException
+     * @throws Exception
      */
     public function testGetVersionNumber(): void
     {
@@ -153,7 +157,7 @@ final class VersionProviderTest extends TestCase
      * @covers ::getVersionNumber
      * @covers ::logWarning
      *
-     * @throws FileNotFoundException
+     * @throws Exception
      */
     public function testGetVersionNumberWhenVersionNumberFileDoesNotExist(): void
     {
@@ -187,6 +191,8 @@ final class VersionProviderTest extends TestCase
      * @covers ::getBuildNumber
      * @covers ::getVersion
      * @covers ::getVersionNumber
+     *
+     * @throws Exception
      */
     public function testGetVersion(): void
     {

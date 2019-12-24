@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ReliqArts\Tests\Unit\Service;
 
+use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReliqArts\Service\ConfigProvider;
@@ -21,17 +22,17 @@ final class ConfigProviderTest extends TestCase
     /**
      * @var string
      */
-    private $namespace;
+    private string $namespace;
 
     /**
      * @var ObjectProphecy|Repository
      */
-    private $repository;
+    private ObjectProphecy $repository;
 
     /**
      * @var ConfigProvider
      */
-    private $subject;
+    private ConfigProvider $subject;
 
     protected function setUp(): void
     {
@@ -45,6 +46,8 @@ final class ConfigProviderTest extends TestCase
     /**
      * @covers ::__construct
      * @covers ::get
+     *
+     * @throws Exception
      */
     public function testGet(): void
     {
@@ -66,6 +69,8 @@ final class ConfigProviderTest extends TestCase
     /**
      * @covers ::__construct
      * @covers ::get
+     *
+     * @throws Exception
      */
     public function testGetWhenKeyIsEmpty(): void
     {

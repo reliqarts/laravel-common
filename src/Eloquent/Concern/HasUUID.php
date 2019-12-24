@@ -4,25 +4,25 @@
 
 declare(strict_types=1);
 
-namespace ReliqArts\Eloquent\Concerns;
+namespace ReliqArts\Eloquent\Concern;
 
 use Illuminate\Support\Str;
 
 trait HasUUID
 {
-    public function getIncrementing()
+    public function getIncrementing(): bool
     {
         return false;
     }
 
-    public function getKeyType()
+    public function getKeyType(): string
     {
         return 'string';
     }
 
-    protected static function bootHasUUID()
+    protected static function bootHasUUID(): void
     {
-        static::creating(function ($model) {
+        static::creating(static function ($model) {
             if (!$model->getKey()) {
                 $model->{$model->getKeyName()} = (string)Str::uuid();
             }

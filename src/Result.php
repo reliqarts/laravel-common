@@ -13,7 +13,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     private const KEY_SUCCESS = 'success';
     private const KEY_ERROR = 'error';
     private const KEY_MESSAGES = 'messages';
-    private const KEY_DATA = 'data';
+    private const KEY_EXTRA = 'extra';
 
     /**
      * @var bool
@@ -33,24 +33,24 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     /**
      * @var null|mixed
      */
-    private $data;
+    private $extra;
 
     /**
      * Result constructor.
      *
      * @param string[] $messages
-     * @param mixed    $data
+     * @param mixed    $extra
      */
     public function __construct(
         bool $success = true,
         string $error = '',
         array $messages = [],
-        $data = null
+        $extra = null
     ) {
         $this->success = $success;
         $this->error = $error;
         $this->messages = $messages;
-        $this->data = $data;
+        $this->extra = $extra;
     }
 
     public function isSuccess(): bool
@@ -83,18 +83,18 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     /**
      * @return null|mixed
      */
-    public function getData()
+    public function getExtra()
     {
-        return $this->data;
+        return $this->extra;
     }
 
     /**
-     * @param mixed $data
+     * @param mixed $extra
      */
-    public function setData($data): self
+    public function setExtra($extra): self
     {
         $clone = clone $this;
-        $clone->data = $data;
+        $clone->extra = $extra;
 
         return $clone;
     }
@@ -150,7 +150,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
             self::KEY_SUCCESS => $this->success,
             self::KEY_ERROR => $this->error,
             self::KEY_MESSAGES => $this->messages,
-            self::KEY_DATA => $this->data,
+            self::KEY_EXTRA => $this->extra,
         ];
     }
 

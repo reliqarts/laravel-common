@@ -1,4 +1,9 @@
 <?php
+/**
+ * @noinspection PhpMissingFieldTypeInspection
+ */
+
+declare(strict_types=1);
 
 namespace ReliqArts\Console\Command;
 
@@ -26,8 +31,7 @@ final class GenerateSitemap extends Command
      */
     public function handle(): void
     {
-        // modify this to your own needs
-        SitemapGenerator::create(config('app.url'))
+        SitemapGenerator::create((string)config('app.url'))
             ->writeToFile(public_path('sitemap.xml'));
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ReliqArts\Tests\Unit;
 
+use Exception;
 use ReliqArts\Result;
 use ReliqArts\Tests\TestCase;
 
@@ -19,7 +20,7 @@ final class ResultTest extends TestCase
     /**
      * @var Result
      */
-    private $subject;
+    private Result $subject;
 
     protected function setUp(): void
     {
@@ -28,6 +29,9 @@ final class ResultTest extends TestCase
         $this->subject = new Result();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testInitialState(): void
     {
         $result = $this->subject;
@@ -37,6 +41,9 @@ final class ResultTest extends TestCase
         $this->assertEmpty($result->getMessages());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testErrorResult(): void
     {
         $error = 'My error';
@@ -46,6 +53,9 @@ final class ResultTest extends TestCase
         $this->assertSame($error, $result->getError());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testResultWithMessages(): void
     {
         $messages = ['hi', 'hello'];
@@ -56,6 +66,9 @@ final class ResultTest extends TestCase
         $this->assertSame($messages, $result->getMessages());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testResultIsProperlySerializable(): void
     {
         $serializedResult = $this->subject->jsonSerialize();
@@ -63,6 +76,6 @@ final class ResultTest extends TestCase
         $this->assertArrayHasKey('success', $serializedResult);
         $this->assertArrayHasKey('error', $serializedResult);
         $this->assertArrayHasKey('messages', $serializedResult);
-        $this->assertArrayHasKey('data', $serializedResult);
+        $this->assertArrayHasKey('extra', $serializedResult);
     }
 }
