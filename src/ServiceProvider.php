@@ -57,7 +57,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->singleton(
             LoggerContract::class,
-            static function (): LoggerContract {
+            function (): LoggerContract {
                 $logger = new Logger($this->getLoggerName());
                 $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
                 $logger->pushHandler(new StreamHandler($logFile, Logger::DEBUG));
