@@ -22,13 +22,18 @@
     "anhskohbo/no-captcha": "^3.1"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "^8.0",
     "codeception/aspect-mock": "^3.0",
     "orchestra/testbench": "^3.8"
   },
   "autoload": {
     "psr-4": {
-      "ReliqArts\\": "src/",
+      "ReliqArts\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "ReliqArts\\Tests\\": "tests/"
     }
   },

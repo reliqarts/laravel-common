@@ -7,6 +7,7 @@ namespace ReliqArts;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Monolog\Handler\StreamHandler;
+use ReliqArts\Console\Command\GenerateSitemap;
 use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
 use ReliqArts\Contract\Filesystem as FilesystemContract;
 use ReliqArts\Contract\Logger as LoggerContract;
@@ -24,11 +25,21 @@ class ServiceProvider extends BaseServiceProvider
     protected const LOG_FILENAME = self::CONFIG_KEY;
 
     /**
+     * List of commands.
+     *
+     * @var array
+     */
+    protected array $commands = [
+        GenerateSitemap::class,
+    ];
+
+    /**
      * Bootstrap the application events.
      */
     public function boot(): void
     {
         $this->handleConfig();
+        $this->handleCommands();
         $this->handleViews();
     }
 
@@ -100,9 +111,13 @@ class ServiceProvider extends BaseServiceProvider
         return static::LOGGER_NAME;
     }
 
-    /**
-     * Register Configuration.
-     */
+    private function handleCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands($this->commands);
+        }
+    }
+
     protected function handleConfig(): void
     {
         $configKey = $this->getConfigKey();

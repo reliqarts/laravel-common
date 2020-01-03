@@ -1,8 +1,6 @@
 <?php
 
 $header = <<<'EOF'
-This file is part of Docweaver
-
 (c) ReliQ <reliq@reliqarts.com>
 EOF;
 
