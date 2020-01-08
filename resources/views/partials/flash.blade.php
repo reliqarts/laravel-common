@@ -7,7 +7,7 @@
 @endphp
 @inject('ui', 'ReliqArts\Helper\UI')
 
-<div class="flash-messages flash-notifications">
+<div class="flash-messages flash-notifications w-full">
     @if (isset($errors) && count($errors->all()) > 0)
         @include('reliqarts-common::partials.alert', [
             'alertColor' => $alertColorError,
