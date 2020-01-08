@@ -8,10 +8,12 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Monolog\Handler\StreamHandler;
 use ReliqArts\Console\Command\GenerateSitemap;
+use ReliqArts\Contract\CacheHelper;
 use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
 use ReliqArts\Contract\Filesystem as FilesystemContract;
 use ReliqArts\Contract\Logger as LoggerContract;
 use ReliqArts\Contract\VersionProvider as VersionProviderContract;
+use ReliqArts\Helper\Cache;
 use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Service\Filesystem;
 use ReliqArts\Service\Logger;
@@ -64,6 +66,11 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             VersionProviderContract::class,
             VersionProvider::class
+        );
+
+        $this->app->singleton(
+            CacheHelper::class,
+            Cache::class
         );
 
         $this->app->singleton(

@@ -43,6 +43,7 @@
         "ReliqArts\\ServiceProvider"
       ],
       "aliases": {
+        "CommonCacheHelper": "ReliqArts\\Helper\\Cache",
         "CommonDateHelper": "ReliqArts\\Helper\\Date",
         "CommonVersionProvider": "ReliqArts\\Service\\VersionProvider"
       }
