@@ -25,8 +25,6 @@ interface CacheHelper
     public function getCacheKeyFor(string ...$thing): string;
 
     /**
-     * @param int $hours
-     *
      * @return Carbon
      */
     public function getCacheTimeout(int $hours = 12): Carbon;

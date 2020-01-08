@@ -118,13 +118,6 @@ class ServiceProvider extends BaseServiceProvider
         return static::LOGGER_NAME;
     }
 
-    private function handleCommands(): void
-    {
-        if ($this->app->runningInConsole()) {
-            $this->commands($this->commands);
-        }
-    }
-
     protected function handleConfig(): void
     {
         $configKey = $this->getConfigKey();
@@ -135,6 +128,13 @@ class ServiceProvider extends BaseServiceProvider
             [$config => config_path(sprintf('%s.php', $configKey))],
             sprintf('%s-config', $configKey)
         );
+    }
+
+    private function handleCommands(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands($this->commands);
+        }
     }
 
     private function handleViews(): void
