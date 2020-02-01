@@ -12,8 +12,6 @@ final class Date
 
     /**
      * Format a Carbon date to be relative or absolute depending on number of days away.
-     *
-     * @return string
      */
     public static function relative(Carbon $date): string
     {
