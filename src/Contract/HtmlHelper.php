@@ -7,7 +7,7 @@ namespace ReliqArts\Contract;
 interface HtmlHelper
 {
     /**
-     * @return string
+     * Strip tags elegantly; leaving adequately spaced words.
      */
     public function stripTags(string $html, ?string $allowedTags = null): string;
 }

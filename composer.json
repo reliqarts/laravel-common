@@ -25,7 +25,9 @@
     "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "^8.0",
     "codeception/aspect-mock": "^3.0",
-    "orchestra/testbench": "^3.8"
+    "orchestra/testbench": "^3.8",
+    "phpro/grumphp": "^0.17.2",
+    "wearejust/grumphp-extra-tasks": "^2.2"
   },
   "autoload": {
     "psr-4": {
