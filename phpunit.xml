@@ -12,10 +12,10 @@
          stopOnFailure="false"
          verbose="true">
     <testsuites>
-        <testsuite name="ReliqArts Common Tests">
+        <testsuite name="Tests">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
-        <testsuite name="ReliqArts Common Unit Tests">
+        <testsuite name="Unit">
             <directory suffix="Test.php">tests/Unit</directory>
         </testsuite>
     </testsuites>
