@@ -33,14 +33,13 @@ class VersionProvider implements VersionProviderContract
     /**
      * @var string[]
      */
-    private array $warningsLogged;
+    private array $warningsLogged = [];
 
     /**
      * VersionProvider constructor.
      */
     public function __construct(ConfigProvider $configProvider, Filesystem $filesystem, Logger $logger)
     {
-        $this->warningsLogged = [];
         $this->configProvider = $configProvider;
         $this->filesystem = $filesystem;
         $this->logger = $logger;

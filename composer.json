@@ -1,7 +1,15 @@
 {
   "name": "reliqarts/laravel-common",
   "description": "Reliq Arts' base/common classes and functions for Laravel.",
-  "keywords": ["laravel", "simple", "common", "helpers", "functions", "global"],
+  "keywords": [
+    "laravel",
+    "base",
+    "simple",
+    "common",
+    "helpers",
+    "functions",
+    "global"
+  ],
   "type": "package",
   "license": "MIT",
   "authors": [
@@ -12,8 +20,8 @@
   ],
   "require": {
     "php": "^7.4",
-    "illuminate/support": "^6.0|^7.0",
-    "monolog/monolog": "^1.24|^2.0",
+    "illuminate/support": "6 - 7",
+    "monolog/monolog": "1.24 - 2",
     "ext-json": "*",
     "spatie/laravel-sitemap": "^5.5",
     "anhskohbo/no-captcha": "^3.1"
@@ -21,9 +29,10 @@
   "require-dev": {
     "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "^8.1",
-    "codeception/aspect-mock": "^3.0",
-    "orchestra/testbench": "^3.8|^5.0",
-    "phpro/grumphp": "^0.18.0"
+    "codeception/aspect-mock": "^3.1",
+    "orchestra/testbench": "4 - 5",
+    "phpro/grumphp": "^0.18.0",
+    "goaop/framework": "^3.0@rc"
   },
   "autoload": {
     "psr-4": {
@@ -37,6 +46,7 @@
   },
   "scripts": {
     "test": "phpunit",
+    "test:ci": "phpunit --verbose --colors=auto --coverage-clover=coverage.xml",
     "test:unit": "phpunit --testsuite=Unit --verbose --coverage-clover=coverage.xml"
   },
   "extra": {
