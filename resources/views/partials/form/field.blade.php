@@ -1,12 +1,14 @@
 @php
     $fieldType = $fieldType ?? 'text';
     $fieldName = $fieldType === 'captcha' ? 'g-recaptcha-response' : ($fieldName ?? 'Field');
+    $fieldErrorName = $fieldErrorName ?? $fieldName;
+    $fieldId = $fieldId ?? $fieldName;
     $fieldIsRequired = $fieldIsRequired ?? $required ?? false;
     $fieldLabel = $fieldLabel
         ?? $label
         ?? ($fieldType === 'captcha' ? 'Are you human?' : \Illuminate\Support\Str::title($fieldName));
     $fieldAttributes = [sprintf('name="%s"', $fieldName), ...$fieldAttributes ?? $attributes ?? []];
-    $fieldHasError = isset($errors) && $errors->has($fieldName);
+    $fieldHasError = isset($errors) && $errors->has($fieldErrorName);
     $fieldAutoFocus = $fieldAutoFocus ?? $autofocus ?? false;
     $fieldPlaceholder = $fieldPlaceholder ?? $placeholder ?? false;
     $fieldContent ??= false;
@@ -51,12 +53,12 @@
     }
 @endphp
 @if($fieldType === 'hidden')
-    <input id="{{ $fieldName }}" name="{{ $fieldName }}" type="hidden" {!! implode(' ', $fieldAttributes) !!} />
+    <input id="{{ $fieldId }}" name="{{ $fieldName }}" type="hidden" {!! implode(' ', $fieldAttributes) !!} />
 @else
-    <div id="field-group-{{ $fieldName }}" class="group my-4 {{ implode(' ', $fieldWrapperClasses) }}">
+    <div id="field-group-{{ $fieldId }}" class="group my-4 {{ implode(' ', $fieldWrapperClasses) }}">
         @if($fieldType === 'checkbox')
             <label for="{{ $fieldName }}" class="block mt-2 text-sm font-bold {{ implode(' ', $fieldLabelClasses) }}">
-                <input id="{{ $fieldName }}" name="{{ $fieldName }}" class="mr-2 align-middle inline-block {{ implode(' ', $fieldClasses) }}"
+                <input id="{{ $fieldId }}" name="{{ $fieldName }}" class="mr-2 align-middle inline-block {{ implode(' ', $fieldClasses) }}"
                        type="checkbox" {{ (($$fieldName ??= false) || old($fieldName)) ? 'checked' : '' }} />
                 <span class="align-middle inline-block">{{ __($fieldLabel) }}</span>
             </label>
@@ -68,7 +70,7 @@
                 @include('reliqarts-common::partials.nocaptcha')
             @elseif($fieldType === 'select')
                 <div class="inline-block relative w-full">
-                    <select id="{{ $fieldName }}"
+                    <select id="{{ $fieldId }}"
                             class="{{ $defaultFieldClassesImploded }} px-4 py-2 pr-8 appearance-none leading-tight {{ implode(' ', $fieldClasses) }}" {!! implode(' ', $fieldAttributes) !!}>
                         @foreach ($fieldOptions as $optionValue => $optionText)
                             <option value="{{ $optionValue }}" {{ $optionValue === $fieldValue ? 'selected' : '' }}>{{ $optionText }}</option>
@@ -81,17 +83,17 @@
                     </div>
                 </div>
             @elseif($fieldIsTextArea)
-                <textarea id="{{ $fieldName }}"
+                <textarea id="{{ $fieldId }}"
                           class="{{ $defaultFieldClassesImploded }} {{ implode(' ', $fieldClasses) }}"
                           {!! implode(' ', $fieldAttributes) !!}>{!! $fieldValue ?? '' !!}</textarea>
             @else
-                <input id="{{ $fieldName }}" type="{{ $fieldType }}"
+                <input id="{{ $fieldId }}" type="{{ $fieldType }}"
                        class="{{ $defaultFieldClassesImploded }} {{ implode(' ', $fieldClasses) }}"
                         {!! implode(' ', $fieldAttributes) !!} />
             @endif
         @endif
         @if($fieldHasError)
-            @include('reliqarts-common::partials.alert', ['color' => 'red', 'message' => $errors->first($fieldName)])
+            @include('reliqarts-common::partials.alert', ['color' => 'red', 'message' => $errors->first($fieldErrorName)])
         @endif
     </div>
 @endif
