@@ -6,11 +6,16 @@ jobs:
   run:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       max-parallel: 10
       matrix:
-        laravel-version: ['^6.0', '6.x-dev', '^7.0']
+        laravel-version: ['^6.0', '^7.0']
         stabilty: ['stable']
+        experimental: [false]
         php-versions: ['7.4']
+        include:
+          - laravel-version: 8.x
+            experimental: true
     name: Laravel ${{ matrix.laravel-version }} (${{ matrix.stabilty }}) on PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
