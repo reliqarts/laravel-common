@@ -15,7 +15,9 @@ jobs:
         php-versions: ['7.4']
         include:
           - laravel-version: 8.x
+            stability: dev
             experimental: true
+            php-versions: 7.4
     name: Laravel ${{ matrix.laravel-version }} (${{ matrix.stabilty }}) on PHP ${{ matrix.php-versions }}
     steps:
       - name: Checkout
