@@ -42,6 +42,7 @@
 
     if ($fieldIsRequired) {
         $fieldAttributes[] = 'required';
+        $fieldWrapperClasses[] = 'required';
     }
 
     if ($fieldAutoFocus) {
