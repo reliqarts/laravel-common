@@ -75,7 +75,7 @@
                     <select id="{{ $fieldId }}"
                             class="{{ $defaultFieldClassesImploded }} px-4 py-2 pr-8 appearance-none leading-tight {{ implode(' ', $fieldClasses) }}" {!! implode(' ', $fieldAttributes) !!}>
                         @if(!$fieldIsRequired)
-                            <option {{ $optionValue === $fieldValue ? 'selected' : '' }}>{{ $fieldEmptyOptionTitle }}</option>
+                            <option {{ empty($fieldValue) ? 'selected' : '' }}>{{ $fieldEmptyOptionTitle }}</option>
                         @endif
                         @foreach ($fieldOptions as $optionValue => $optionText)
                             <option value="{{ $optionValue }}" {{ $optionValue === $fieldValue ? 'selected' : '' }}>{{ $optionText }}</option>
