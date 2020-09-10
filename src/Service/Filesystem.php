@@ -7,6 +7,9 @@ namespace ReliqArts\Service;
 use Illuminate\Filesystem\Filesystem as BaseFilesystem;
 use ReliqArts\Contract\Filesystem as FilesystemContract;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Filesystem extends BaseFilesystem implements FilesystemContract
 {
     /**
@@ -15,7 +18,7 @@ class Filesystem extends BaseFilesystem implements FilesystemContract
      *
      * @return bool
      */
-    public function deleteDirectory($directory, $preserve = false)
+    public function deleteDirectory($directory, $preserve = false): bool
     {
         if (!$this->isDirectory($directory)) {
             return false;

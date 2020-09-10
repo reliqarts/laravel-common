@@ -32,7 +32,7 @@ final class HtmlTest extends TestCase
      */
     public function testStripTags(string $html, string $expectedResult, ?string $allowedTags = null): void
     {
-        $this->assertSame($expectedResult, $this->subject->stripTags($html, $allowedTags));
+        self::assertSame($expectedResult, $this->subject->stripTags($html, $allowedTags));
     }
 
     public function stripTagsDataProvider(): array

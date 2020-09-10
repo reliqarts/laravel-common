@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace ReliqArts\Tests;
 
 use Illuminate\Foundation\Application;
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use ReliqArts\ServiceProvider;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     /**
-     * @param Application $app
+     * Get package providers.
+     *
+     * @param  Application  $app
      *
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [ServiceProvider::class];
     }

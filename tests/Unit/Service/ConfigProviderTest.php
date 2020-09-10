@@ -65,8 +65,8 @@ final class ConfigProviderTest extends TestCase
 
         $result = $this->subject->get($key, $default);
 
-        $this->assertNotEmpty($result);
-        $this->assertSame($expectedValue, $result);
+        self::assertNotEmpty($result);
+        self::assertSame($expectedValue, $result);
     }
 
     /**
@@ -84,9 +84,9 @@ final class ConfigProviderTest extends TestCase
         $result1 = $this->subject->get(null);
         $result2 = $this->subject->get('');
 
-        $this->assertNotEmpty($result1);
-        $this->assertNotEmpty($result2);
-        $this->assertSame($expectedValue, $result1);
-        $this->assertSame($expectedValue, $result2);
+        self::assertNotEmpty($result1);
+        self::assertNotEmpty($result2);
+        self::assertSame($expectedValue, $result1);
+        self::assertSame($expectedValue, $result2);
     }
 }

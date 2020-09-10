@@ -36,9 +36,9 @@ final class ResultTest extends TestCase
     {
         $result = $this->subject;
 
-        $this->assertTrue($result->isSuccess());
-        $this->assertEmpty($result->getError());
-        $this->assertEmpty($result->getMessages());
+        self::assertTrue($result->isSuccess());
+        self::assertEmpty($result->getError());
+        self::assertEmpty($result->getMessages());
     }
 
     /**
@@ -49,8 +49,8 @@ final class ResultTest extends TestCase
         $error = 'My error';
         $result = $this->subject->setError($error);
 
-        $this->assertFalse($result->isSuccess());
-        $this->assertSame($error, $result->getError());
+        self::assertFalse($result->isSuccess());
+        self::assertSame($error, $result->getError());
     }
 
     /**
@@ -61,9 +61,9 @@ final class ResultTest extends TestCase
         $messages = ['hi', 'hello'];
         $result = $this->subject->setMessages(...$messages);
 
-        $this->assertTrue($result->isSuccess());
-        $this->assertSame($messages[0], $result->getMessage());
-        $this->assertSame($messages, $result->getMessages());
+        self::assertTrue($result->isSuccess());
+        self::assertSame($messages[0], $result->getMessage());
+        self::assertSame($messages, $result->getMessages());
     }
 
     /**
@@ -73,9 +73,9 @@ final class ResultTest extends TestCase
     {
         $serializedResult = $this->subject->jsonSerialize();
 
-        $this->assertArrayHasKey('success', $serializedResult);
-        $this->assertArrayHasKey('error', $serializedResult);
-        $this->assertArrayHasKey('messages', $serializedResult);
-        $this->assertArrayHasKey('extra', $serializedResult);
+        self::assertArrayHasKey('success', $serializedResult);
+        self::assertArrayHasKey('error', $serializedResult);
+        self::assertArrayHasKey('messages', $serializedResult);
+        self::assertArrayHasKey('extra', $serializedResult);
     }
 }

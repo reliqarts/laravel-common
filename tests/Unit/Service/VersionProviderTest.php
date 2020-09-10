@@ -63,9 +63,13 @@ final class VersionProviderTest extends TestCase
         $this->filesystem = $this->prophesize(Filesystem::class);
         $this->logger = $this->prophesize(Logger::class);
 
-        $this->configProvider->get(Argument::that(function ($key) {
-            return stripos($key, 'files.') === 0;
-        }))->willReturn(self::ARBITRARY_FILE_PATH);
+        $this->configProvider->get(
+            Argument::that(
+                static function ($key) {
+                    return stripos($key, 'files.') === 0;
+                }
+            )
+        )->willReturn(self::ARBITRARY_FILE_PATH);
 
         $this->subject = new VersionProvider(
             $this->configProvider->reveal(),
@@ -93,8 +97,8 @@ final class VersionProviderTest extends TestCase
 
         $result = $this->subject->getBuildNumber();
 
-        $this->assertIsString($result);
-        $this->assertSame($expectedBuildNumber, $result);
+        self::assertIsString($result);
+        self::assertSame($expectedBuildNumber, $result);
     }
 
     /**
@@ -114,21 +118,23 @@ final class VersionProviderTest extends TestCase
             ->shouldBeCalledTimes(2)
             ->willThrow(FileNotFoundException::class);
         $this->logger->warning(
-            Argument::that(function ($message) use ($buildFile) {
-                $expectedMessage = sprintf('build number file (%s) does not exist', $buildFile);
+            Argument::that(
+                static function ($message) use ($buildFile) {
+                    $expectedMessage = sprintf('build number file (%s) does not exist', $buildFile);
 
-                return stripos($message, $expectedMessage) === 0;
-            }),
+                    return stripos($message, $expectedMessage) === 0;
+                }
+            ),
             ['in' => VersionProvider::class]
         )->shouldBeCalledTimes(1);
 
         $result1 = $this->subject->getBuildNumber();
         $result2 = $this->subject->getBuildNumber();
 
-        $this->assertIsString($result1);
-        $this->assertIsString($result2);
-        $this->assertSame($expectedBuildNumber, $result1);
-        $this->assertSame($expectedBuildNumber, $result2);
+        self::assertIsString($result1);
+        self::assertIsString($result2);
+        self::assertSame($expectedBuildNumber, $result1);
+        self::assertSame($expectedBuildNumber, $result2);
     }
 
     /**
@@ -150,8 +156,8 @@ final class VersionProviderTest extends TestCase
 
         $result = $this->subject->getVersionNumber();
 
-        $this->assertIsString($result);
-        $this->assertSame($expectedVersionNumber, $result);
+        self::assertIsString($result);
+        self::assertSame($expectedVersionNumber, $result);
     }
 
     /**
@@ -171,21 +177,23 @@ final class VersionProviderTest extends TestCase
             ->shouldBeCalledTimes(2)
             ->willThrow(FileNotFoundException::class);
         $this->logger->warning(
-            Argument::that(function ($message) use ($versionFile) {
-                $expectedMessage = sprintf('version file (%s) does not exist', $versionFile);
+            Argument::that(
+                static function ($message) use ($versionFile) {
+                    $expectedMessage = sprintf('version file (%s) does not exist', $versionFile);
 
-                return stripos($message, $expectedMessage) === 0;
-            }),
+                    return stripos($message, $expectedMessage) === 0;
+                }
+            ),
             ['in' => VersionProvider::class]
         )->shouldBeCalledTimes(1);
 
         $result1 = $this->subject->getVersionNumber();
         $result2 = $this->subject->getVersionNumber();
 
-        $this->assertIsString($result1);
-        $this->assertIsString($result2);
-        $this->assertSame($expectedVersion, $result1);
-        $this->assertSame($expectedVersion, $result2);
+        self::assertIsString($result1);
+        self::assertIsString($result2);
+        self::assertSame($expectedVersion, $result1);
+        self::assertSame($expectedVersion, $result2);
     }
 
     /**
@@ -219,9 +227,9 @@ final class VersionProviderTest extends TestCase
         $result = $this->subject->getVersion(false);
         $resultWithBuildNumber = $this->subject->getVersion();
 
-        $this->assertIsString($result);
-        $this->assertIsString($resultWithBuildNumber);
-        $this->assertSame($expectedVersionNumber, $result);
-        $this->assertSame($expectedVersionNumberWithBuild, $resultWithBuildNumber);
+        self::assertIsString($result);
+        self::assertIsString($resultWithBuildNumber);
+        self::assertSame($expectedVersionNumber, $result);
+        self::assertSame($expectedVersionNumberWithBuild, $resultWithBuildNumber);
     }
 }
