@@ -9,6 +9,7 @@ namespace ReliqArts\Tests\Unit\Service;
 use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReliqArts\Contract\ConfigProvider;
 use ReliqArts\Contract\Filesystem;
@@ -25,6 +26,8 @@ use ReliqArts\Tests\TestCase;
  */
 final class VersionProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     private const ARBITRARY_FILE_PATH = 'file.ext';
     private const DEFAULT_BUILD = VersionProvider::DEFAULT_BUILD;
     private const DEFAULT_VERSION = VersionProvider::DEFAULT_VERSION;

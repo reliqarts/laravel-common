@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": "^7.4",
-    "illuminate/support": "6 - 7",
+    "illuminate/support": "6 - 8",
     "monolog/monolog": "1.24 - 2",
     "ext-json": "*",
     "spatie/laravel-sitemap": "^5.5",
@@ -28,11 +28,13 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "phpunit/phpunit": "^8.1",
+    "phpunit/phpunit": "^9.3",
     "codeception/aspect-mock": "^3.1",
-    "orchestra/testbench": "4 - 5",
-    "phpro/grumphp": "^0.18.0",
-    "goaop/framework": "^3.0@rc"
+    "orchestra/testbench": "4 - 6",
+    "phpro/grumphp": "^0.19.1",
+    "goaop/framework": "^3.0@rc",
+    "phpspec/prophecy-phpunit": "^2.0",
+    "symplify/easy-coding-standard": "^8.1"
   },
   "autoload": {
     "psr-4": {

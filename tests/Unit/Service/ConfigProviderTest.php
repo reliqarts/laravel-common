@@ -6,6 +6,7 @@ namespace ReliqArts\Tests\Unit\Service;
 
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Tests\TestCase;
@@ -19,6 +20,8 @@ use ReliqArts\Tests\TestCase;
  */
 final class ConfigProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var string
      */
