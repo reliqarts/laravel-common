@@ -34,6 +34,9 @@
     "symplify/easy-coding-standard": "^8.2",
     "orchestra/testbench": "4 - 6"
   },
+  "replace": {
+    "reliqarts/laravel-non-www": "*"
+  },
   "autoload": {
     "psr-4": {
       "ReliqArts\\": "src/"

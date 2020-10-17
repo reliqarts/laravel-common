@@ -21,6 +21,7 @@ Reliq Arts' base/common classes and functions for Laravel 6+.
 - Version Provider
 - Sitemap generation command
     - via Spatie's [Laravel Sitemap](https://github.com/spatie/laravel-sitemap)
+- NonWWW middleware: Tiny middleware to redirect all www requests to non-www counterparts.
 
 ## Installation & Use
 
@@ -41,6 +42,17 @@ Use anywhere throughout your application. e.g.
 ```php
 $versionProvider = resolve(ReliqArts\Contract\VersionProvider::class);
 $versionProvider->getVersion();
+```
+Use NonWWW middleware in Kernel. i.e.
+
+```php
+'web' => [
+    // ...
+
+    \ReliqArts\NonWWW\Http\Middleware\NonWWW::class,
+
+    // ...
+],
 ```
 
 All done! :beers:
