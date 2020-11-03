@@ -10,6 +10,7 @@ use Monolog\Handler\StreamHandler;
 use ReliqArts\Console\Command\GenerateSitemap;
 use ReliqArts\Contract\CacheHelper;
 use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
+use ReliqArts\Contract\DescendantsFinder as DescendantsFinderContract;
 use ReliqArts\Contract\Filesystem as FilesystemContract;
 use ReliqArts\Contract\HtmlHelper;
 use ReliqArts\Contract\Logger as LoggerContract;
@@ -18,6 +19,7 @@ use ReliqArts\Helper\Cache;
 use ReliqArts\Helper\Html;
 use ReliqArts\Http\Middleware\NonWWW;
 use ReliqArts\Service\ConfigProvider;
+use ReliqArts\Service\DescendantsFinder;
 use ReliqArts\Service\Filesystem;
 use ReliqArts\Service\Logger;
 use ReliqArts\Service\VersionProvider;
@@ -54,32 +56,18 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(FilesystemContract::class, Filesystem::class);
+        $this->app->singleton(VersionProviderContract::class, VersionProvider::class);
+        $this->app->singleton(CacheHelper::class, Cache::class);
+        $this->app->singleton(HtmlHelper::class, Html::class);
+        $this->app->singleton(DescendantsFinderContract::class, DescendantsFinder::class);
+
         $this->app->singleton(
             ConfigProviderContract::class,
             static fn (): ConfigProviderContract => new ConfigProvider(
                 resolve(ConfigRepository::class),
                 self::CONFIG_KEY
             )
-        );
-
-        $this->app->singleton(
-            FilesystemContract::class,
-            Filesystem::class
-        );
-
-        $this->app->singleton(
-            VersionProviderContract::class,
-            VersionProvider::class
-        );
-
-        $this->app->singleton(
-            CacheHelper::class,
-            Cache::class
-        );
-
-        $this->app->singleton(
-            HtmlHelper::class,
-            Html::class
         );
 
         $this->app->singleton(

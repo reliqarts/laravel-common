@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace ReliqArts\Tests;
 
 use Illuminate\Foundation\Application;
+use Orchestra\Testbench\TestCase as TestbenchTestCase;
 use ReliqArts\ServiceProvider;
 
-abstract class TestCase extends \Orchestra\Testbench\TestCase
+abstract class TestCase extends TestbenchTestCase
 {
     /**
      * Get package providers.
      *
-     * @param  Application  $app
+     * @param Application $app
      *
      * @return array
      */
