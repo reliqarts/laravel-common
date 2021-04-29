@@ -27,7 +27,7 @@
     "anhskohbo/no-captcha": "^3.1"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master",
+    "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^9.3",
     "phpro/grumphp": "^1.0",
     "phpspec/prophecy-phpunit": "^2.0",
