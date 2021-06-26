@@ -9,15 +9,10 @@ jobs:
       fail-fast: false
       max-parallel: 10
       matrix:
-        laravel-version: ['^6.0', '^7.0', '^8.0']
+        laravel-version: ['^8.0']
         preference: ['stable']
         experimental: [false]
-        php-version: ['7.4', '8.0']
-        exclude:
-          - laravel-version: ^6.0
-            php-version: 8.0
-          - laravel-version: ^7.0
-            php-version: 8.0
+        php-version: ['8.0']
     name: Laravel ${{ matrix.laravel-version }} (${{ matrix.preference }}) on PHP ${{ matrix.php-version }}
     steps:
       - name: Checkout
