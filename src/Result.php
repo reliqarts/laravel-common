@@ -39,7 +39,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
      * Result constructor.
      *
      * @param string[] $messages
-     * @param mixed    $extra
+     * @param mixed $extra
      */
     public function __construct(
         bool $success = true,
@@ -58,7 +58,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
         return $this->success;
     }
 
-    public function setSuccess(bool $success): self
+    public function setSuccess(bool $success): static
     {
         $clone = clone $this;
         $clone->success = $success;
@@ -71,7 +71,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
         return $this->error;
     }
 
-    public function setError(string $error): self
+    public function setError(string $error): static
     {
         $clone = clone $this;
         $clone->error = $error;
@@ -91,7 +91,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     /**
      * @param mixed $extra
      */
-    public function setExtra($extra): self
+    public function setExtra($extra): static
     {
         $clone = clone $this;
         $clone->extra = $extra;
@@ -104,7 +104,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
         return empty($this->messages) ? '' : current($this->messages);
     }
 
-    public function setMessage(string $message): self
+    public function setMessage(string $message): static
     {
         return $this->addMessage($message);
     }
@@ -120,7 +120,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     /**
      * @param string ...$messages
      */
-    public function setMessages(string ...$messages): self
+    public function setMessages(string ...$messages): static
     {
         $clone = clone $this;
         $clone->messages = $messages;
@@ -128,7 +128,7 @@ class Result implements Arrayable, Jsonable, JsonSerializable
         return $clone;
     }
 
-    public function addMessage(string $message): self
+    public function addMessage(string $message): static
     {
         $clone = clone $this;
         $clone->messages[] = $message;
