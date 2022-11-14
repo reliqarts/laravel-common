@@ -7,21 +7,27 @@ namespace ReliqArts;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger as MonologLogger;
+use ReliqArts\Common\Contract\ProcessHelper;
 use ReliqArts\Console\Command\GenerateSitemap;
+use ReliqArts\Console\Command\NewRelease;
 use ReliqArts\Contract\CacheHelper;
 use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
 use ReliqArts\Contract\DescendantsFinder as DescendantsFinderContract;
 use ReliqArts\Contract\Filesystem as FilesystemContract;
 use ReliqArts\Contract\HtmlHelper;
 use ReliqArts\Contract\Logger as LoggerContract;
+use ReliqArts\Contract\ProcessRunner as ProcessRunnerContract;
 use ReliqArts\Contract\VersionProvider as VersionProviderContract;
 use ReliqArts\Helper\Cache;
 use ReliqArts\Helper\Html;
+use ReliqArts\Helper\Process;
 use ReliqArts\Http\Middleware\NonWWW;
 use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Service\DescendantsFinder;
 use ReliqArts\Service\Filesystem;
 use ReliqArts\Service\Logger;
+use ReliqArts\Service\ProcessRunner;
 use ReliqArts\Service\VersionProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -38,6 +44,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected array $commands = [
         GenerateSitemap::class,
+        NewRelease::class,
     ];
 
     /**
@@ -61,6 +68,8 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(CacheHelper::class, Cache::class);
         $this->app->singleton(HtmlHelper::class, Html::class);
         $this->app->singleton(DescendantsFinderContract::class, DescendantsFinder::class);
+        $this->app->singleton(ProcessHelper::class, Process::class);
+        $this->app->singleton(ProcessRunnerContract::class, ProcessRunner::class);
 
         $this->app->singleton(
             ConfigProviderContract::class,
@@ -75,7 +84,7 @@ class ServiceProvider extends BaseServiceProvider
             function (): LoggerContract {
                 $logger = new Logger($this->getLoggerName());
                 $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
-                $logger->pushHandler(new StreamHandler($logFile, Logger::DEBUG));
+                $logger->pushHandler(new StreamHandler($logFile, MonologLogger::DEBUG));
 
                 return $logger;
             }
