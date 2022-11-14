@@ -52,6 +52,12 @@
     "test:ci": "phpunit --verbose --coverage-clover=coverage.xml",
     "test:unit": "phpunit --testsuite=Unit --verbose --coverage-clover=coverage.xml"
   },
+  "config": {
+    "allow-plugins": {
+      "phpro/grumphp": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
   "extra": {
     "laravel": {
       "providers": [
