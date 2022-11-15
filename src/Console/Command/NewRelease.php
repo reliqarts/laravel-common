@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace ReliqArts\Console\Command;
 
 use Illuminate\Console\Command;
+use ReliqArts\Contract\ProcessRunner;
 use Symfony\Component\Process\Exception\ExceptionInterface;
-use Symfony\Component\Process\Process;
 
 final class NewRelease extends Command
 {
@@ -15,7 +15,7 @@ final class NewRelease extends Command
      *
      * @var string
      */
-    protected $signature = 'common:release:new {version}';
+    protected $signature = 'common:release:new {version} {versionFile?}';
 
     /**
      * The console command description.
@@ -23,6 +23,18 @@ final class NewRelease extends Command
      * @var string
      */
     protected $description = 'Release a new version';
+
+    private ProcessRunner $processRunner;
+
+    /**
+     * @param ProcessRunner $processRunner
+     */
+    public function __construct(ProcessRunner $processRunner)
+    {
+        parent::__construct();
+
+        $this->processRunner = $processRunner;
+    }
 
     /**
      * Execute the console command.
@@ -33,8 +45,7 @@ final class NewRelease extends Command
     public function handle(): int
     {
         $version = $this->argument('version');
-
-        $this->line(sprintf('Attempting to release version %s.', $version));
+        $versionFile = $this->argument('versionFile') ?? '';
 
         if (!$this->isGitFlowAvailable()) {
             $this->error('Git flow is not available.');
@@ -42,6 +53,29 @@ final class NewRelease extends Command
 
             return 1;
         }
+        if ('develop' !== ($this->getCurrentBranch() ?? '')) {
+            $this->error('Command must be ran from the `develop` branch.');
+
+            return 1;
+        }
+
+        $this->line(sprintf('Releasing version %s...', $version));
+
+        if (!empty($versionFile)) {
+            $this->comment("output file: \"$versionFile\"");
+            $this->line("---\n");
+        }
+
+        if (!$this->releaseVersion($version, $versionFile)) {
+            $this->error('Version release failed.');
+
+            return 1;
+        }
+
+        $this->info(
+            "Successfully released version $version!"
+            . empty($versionFile) ? '' : " Written to \"$versionFile\"."
+        );
 
         return 0;
     }
@@ -49,11 +83,42 @@ final class NewRelease extends Command
     /**
      * @throws ExceptionInterface
      */
+    private function releaseVersion(string $version, string $versionFile = ''): bool
+    {
+        $commandText = 'git checkout main'
+            . ' && git merge ${DEVELOP_BRANCH} --no-edit --allow-unrelated-histories'
+            . ' && git tag -a ${VERSION} -m "version ${VERSION}"'
+            . (empty($versionFile) ? '' : ' && git describe > ${VERSION_FILE}')
+            . ' && git push --tags && git push --all && git checkout ${DEVELOP_BRANCH}';
+        $process = $this->processRunner->runShellCommand($commandText, [
+            'DEVELOP_BRANCH' => 'develop',
+            'VERSION_FILE' => $versionFile,
+            'VERSION' => $version,
+        ]);
+        if (!$process->isSuccessful()) {
+            $this->line(
+                sprintf(
+                    "%s - %s \n%s",
+                    $process->getExitCode(),
+                    $process->getExitCodeText(),
+                    $process->getOutput()
+                )
+            );
+
+            return false;
+        }
+
+        $this->line($process->getOutput());
+
+        return true;
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
     private function isGitFlowAvailable(): bool
     {
-        $process = new Process(['git', 'flow', 'version']);
-        $process->run();
-
+        $process = $this->processRunner->run(['git', 'flow', 'version']);
         if (!$process->isSuccessful()) {
             $this->comment('Failed to get Git Flow version.');
             $this->line(
@@ -68,8 +133,31 @@ final class NewRelease extends Command
             return false;
         }
 
-        $this->comment(sprintf('Git Flow version: %s', $process->getOutput()));
+        $this->comment(sprintf('[i] Git Flow version: %s', $process->getOutput()));
 
         return true;
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    private function getCurrentBranch(): ?string
+    {
+        $process = $this->processRunner->run(['git', 'branch', '--show-current']);
+        if (!$process->isSuccessful()) {
+            $this->comment('Failed to get current branch name.');
+            $this->line(
+                sprintf(
+                    "%s - %s \n%s",
+                    $process->getExitCode(),
+                    $process->getExitCodeText(),
+                    $process->getOutput()
+                )
+            );
+
+            return null;
+        }
+
+        return trim($process->getOutput());
     }
 }

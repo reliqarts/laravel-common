@@ -13,5 +13,10 @@ interface ProcessRunner
     /**
      * @throws LogicException|ProcessFailedException
      */
-    public function run(array $command, string $workingDirectory): Process;
+    public function run(array $command, string $workingDirectory = null): Process;
+
+    /**
+     * @throws LogicException|ProcessFailedException
+     */
+    public function runShellCommand(string $command, array $env = []): Process;
 }
