@@ -15,7 +15,9 @@ final class NewRelease extends Command
      *
      * @var string
      */
-    protected $signature = 'common:release:new {version} {versionFile?}';
+    protected $signature = 'common:release:new 
+                            {version : Version number/name e.g. v1.0, v2.0-beta} 
+                            {versionFile? : (optional) File to store version number in e.g. version.file}';
 
     /**
      * The console command description.
@@ -85,9 +87,9 @@ final class NewRelease extends Command
      */
     private function releaseVersion(string $version, string $versionFile = ''): bool
     {
-        $commandText = 'git checkout main'
+        $commandText = 'git tag -a ${VERSION} -m "version ${VERSION}"'
+            . ' && git checkout main'
             . ' && git merge ${DEVELOP_BRANCH} --no-edit --allow-unrelated-histories'
-            . ' && git tag -a ${VERSION} -m "version ${VERSION}"'
             . (empty($versionFile) ? '' : ' && git describe > ${VERSION_FILE}')
             . ' && git push --tags && git push --all && git checkout ${DEVELOP_BRANCH}';
         $process = $this->processRunner->runShellCommand($commandText, [
