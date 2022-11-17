@@ -9,6 +9,7 @@ use ReliqArts\Contract\ConfigProvider;
 use ReliqArts\Contract\Filesystem;
 use ReliqArts\Contract\Logger;
 use ReliqArts\Contract\VersionProvider as VersionProviderContract;
+use Throwable;
 
 class VersionProvider implements VersionProviderContract
 {
@@ -48,9 +49,9 @@ class VersionProvider implements VersionProviderContract
     /**
      * Get application build number.
      */
-    public function getBuildNumber(): string
+    public function getBuildNumber(?string $filename = null): string
     {
-        $buildFile = $this->configProvider->get('files.build');
+        $buildFile = $filename ?? $this->configProvider->get('files.build');
 
         try {
             $buildNumber = $this->filesystem->get(base_path($buildFile));
@@ -62,7 +63,7 @@ class VersionProvider implements VersionProviderContract
                 $buildNumber
             );
 
-            $this->logWarning($message);
+            $this->logWarning($exception, $message);
         }
 
         return $this->cleanText($buildNumber);
@@ -71,9 +72,9 @@ class VersionProvider implements VersionProviderContract
     /**
      * Get application version number.
      */
-    public function getVersionNumber(): string
+    public function getVersionNumber(?string $filename = null): string
     {
-        $versionFile = $this->configProvider->get('files.version');
+        $versionFile = $filename ?? $this->configProvider->get('files.version');
 
         try {
             $version = $this->filesystem->get(base_path($versionFile));
@@ -85,7 +86,7 @@ class VersionProvider implements VersionProviderContract
                 $version
             );
 
-            $this->logWarning($message);
+            $this->logWarning($exception, $message);
         }
 
         return $this->cleanText($version);
@@ -93,15 +94,16 @@ class VersionProvider implements VersionProviderContract
 
     /**
      * Get current application version.
-     *
-     * @param bool $includeBuildNumber
      */
-    public function getVersion($includeBuildNumber = true): string
-    {
-        $version = $this->getVersionNumber();
+    public function getVersion(
+        bool $includeBuildNumber = true,
+        ?string $versionFilename = null,
+        ?string $buildFilename = null
+    ): string {
+        $version = $this->getVersionNumber($versionFilename);
 
         if ($includeBuildNumber) {
-            $version = sprintf('%s.%s', $version, $this->getBuildNumber());
+            $version = sprintf('%s.%s', $version, $this->getBuildNumber($buildFilename));
         }
 
         return $version;
@@ -114,13 +116,13 @@ class VersionProvider implements VersionProviderContract
         return preg_replace($pattern, '', $text);
     }
 
-    private function logWarning(string $message): void
+    private function logWarning(Throwable $exception, string $message): void
     {
         if (in_array($message, $this->warningsLogged, true)) {
             return;
         }
 
-        $this->logger->warning($message, ['in' => self::class]);
+        $this->logger->warning($message, ['in' => self::class, 'exception' => $exception->getMessage()]);
         $this->warningsLogged[] = $message;
     }
 }

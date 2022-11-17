@@ -125,7 +125,7 @@ final class VersionProviderTest extends TestCase
                     return stripos($message, $expectedMessage) === 0;
                 }
             ),
-            ['in' => VersionProvider::class]
+            ['in' => VersionProvider::class, 'exception' => '']
         )->shouldBeCalledTimes(1);
 
         $result1 = $this->subject->getBuildNumber();
@@ -184,7 +184,7 @@ final class VersionProviderTest extends TestCase
                     return stripos($message, $expectedMessage) === 0;
                 }
             ),
-            ['in' => VersionProvider::class]
+            ['in' => VersionProvider::class, 'exception' => '']
         )->shouldBeCalledTimes(1);
 
         $result1 = $this->subject->getVersionNumber();

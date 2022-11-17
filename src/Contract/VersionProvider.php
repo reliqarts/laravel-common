@@ -9,17 +9,19 @@ interface VersionProvider
     /**
      * Get application build number.
      */
-    public function getBuildNumber(): string;
+    public function getBuildNumber(?string $filename = null): string;
 
     /**
      * Get application version number.
      */
-    public function getVersionNumber(): string;
+    public function getVersionNumber(?string $filename = null): string;
 
     /**
      * Get current application version.
-     *
-     * @param bool $includeBuildNumber
      */
-    public function getVersion($includeBuildNumber = true): string;
+    public function getVersion(
+        bool $includeBuildNumber = true,
+        ?string $versionFilename = null,
+        ?string $buildFilename = null
+    ): string;
 }
