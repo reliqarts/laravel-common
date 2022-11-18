@@ -90,7 +90,8 @@ final class NewRelease extends Command
         $commandText = 'git tag -a ${VERSION} -m "version ${VERSION}"'
             . ' && git checkout main'
             . ' && git merge ${DEVELOP_BRANCH} --no-edit --allow-unrelated-histories'
-            . (empty($versionFile) ? '' : ' && git describe > ${VERSION_FILE} && git commit -am "update version file"')
+            . (empty($versionFile) ? '' : ' && git describe > ${VERSION_FILE}'
+                . sprintf(' && git commit -am ":pencil: update version file - %s"', $version))
             . ' && git push --tags && git push --all && git checkout ${DEVELOP_BRANCH}'
             . (empty($versionFile) ? '' : ' && git merge main');
         $process = $this->processRunner->runShellCommand($commandText, [
