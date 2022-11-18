@@ -91,7 +91,8 @@ final class NewRelease extends Command
             . ' && git checkout main'
             . ' && git merge ${DEVELOP_BRANCH} --no-edit --allow-unrelated-histories'
             . (empty($versionFile) ? '' : ' && git describe > ${VERSION_FILE} && git commit -am "update version file"')
-            . ' && git push --tags && git push --all && git checkout ${DEVELOP_BRANCH}';
+            . ' && git push --tags && git push --all && git checkout ${DEVELOP_BRANCH}'
+            . (empty($versionFile) ? '' : ' && git merge main');
         $process = $this->processRunner->runShellCommand($commandText, [
             'DEVELOP_BRANCH' => 'develop',
             'VERSION_FILE' => $versionFile,
