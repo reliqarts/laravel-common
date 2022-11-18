@@ -93,7 +93,7 @@ final class NewRelease extends Command
             . (empty($versionFile) ? '' : ' && git describe > ${VERSION_FILE}'
                 . sprintf(' && git commit -am ":pencil: update version file - %s"', $version))
             . ' && git push --tags && git push --all && git checkout ${DEVELOP_BRANCH}'
-            . (empty($versionFile) ? '' : ' && git merge main');
+            . (empty($versionFile) ? '' : ' && git merge main && git push');
         $process = $this->processRunner->runShellCommand($commandText, [
             'DEVELOP_BRANCH' => 'develop',
             'VERSION_FILE' => $versionFile,
