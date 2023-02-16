@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": "^8.0",
-    "illuminate/support": "^8.0 || ^9.0",
+    "illuminate/support": "^8.0 || ^9.0 || ^10.0",
     "monolog/monolog": "1.24 - 2",
     "ext-json": "*",
     "spatie/laravel-sitemap": "^6.0",
