@@ -25,7 +25,7 @@ class Filesystem extends BaseFilesystem implements FilesystemContract
         }
 
         /**
-         * @var string Pattern for finding all contained files/directories
+         * @var string $pattern Pattern for finding all contained files/directories
          *             inclusive of hidden directories such as `.git`.
          *
          * @see https://stackoverflow.com/a/49031383/3466460 Pattern Source

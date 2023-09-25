@@ -7,4 +7,5 @@
 .DS_Store
 *cache
 composer.lock
+coverage.xml
 

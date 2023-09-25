@@ -17,9 +17,6 @@ use ReliqArts\Tests\TestCase;
  */
 final class ResultTest extends TestCase
 {
-    /**
-     * @var Result
-     */
     private Result $subject;
 
     protected function setUp(): void

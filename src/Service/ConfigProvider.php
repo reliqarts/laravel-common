@@ -7,30 +7,14 @@ namespace ReliqArts\Service;
 use Illuminate\Contracts\Config\Repository;
 use ReliqArts\Contract\ConfigProvider as ConfigProviderContract;
 
-class ConfigProvider implements ConfigProviderContract
+readonly class ConfigProvider implements ConfigProviderContract
 {
-    /**
-     * @var Repository
-     */
-    protected Repository $repository;
-
-    /**
-     * @var string
-     */
-    protected string $namespace;
-
-    /**
-     * ConfigProvider constructor.
-     */
-    public function __construct(Repository $repository, string $namespace)
+    public function __construct(protected Repository $repository, protected string $namespace)
     {
-        $this->repository = $repository;
-        $this->namespace = $namespace;
     }
 
     /**
-     * @param mixed $default
-     *
+     * @param  mixed  $default
      * @return mixed
      */
     public function get(?string $key, $default = null)

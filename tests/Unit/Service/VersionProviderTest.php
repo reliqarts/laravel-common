@@ -1,6 +1,8 @@
 <?php
-
-/** @noinspection PhpStrictTypeCheckingInspection */
+/**
+ * @noinspection PhpStrictTypeCheckingInspection
+ * @noinspection PhpVoidFunctionResultUsedInspection
+ */
 
 declare(strict_types=1);
 
@@ -29,27 +31,17 @@ final class VersionProviderTest extends TestCase
     use ProphecyTrait;
 
     private const ARBITRARY_FILE_PATH = 'file.ext';
+
     private const DEFAULT_BUILD = VersionProvider::DEFAULT_BUILD;
+
     private const DEFAULT_VERSION = VersionProvider::DEFAULT_VERSION;
 
-    /**
-     * @var ConfigProvider|ObjectProphecy
-     */
-    private ObjectProphecy $configProvider;
+    private ObjectProphecy|ConfigProvider $configProvider;
 
-    /**
-     * @var Filesystem|ObjectProphecy
-     */
-    private ObjectProphecy $filesystem;
+    private ObjectProphecy|Filesystem $filesystem;
 
-    /**
-     * @var Logger|ObjectProphecy
-     */
-    private ObjectProphecy $logger;
+    private ObjectProphecy|Logger $logger;
 
-    /**
-     * @var VersionProvider
-     */
     private VersionProvider $subject;
 
     /**

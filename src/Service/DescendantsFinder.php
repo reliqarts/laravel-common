@@ -11,7 +11,7 @@ namespace ReliqArts\Service;
 use Illuminate\Support\Collection;
 use ReliqArts\Contract\DescendantsFinder as DescendantsFinderContract;
 
-final class DescendantsFinder implements DescendantsFinderContract
+final readonly class DescendantsFinder implements DescendantsFinderContract
 {
     public function findDescendantsInCollection(
         int $parentId,

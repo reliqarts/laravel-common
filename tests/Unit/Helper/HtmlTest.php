@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ReliqArts\Tests\Unit\Helper;
 
+use Exception;
 use ReliqArts\Contract\HtmlHelper;
 use ReliqArts\Helper\Html;
 use ReliqArts\Tests\TestCase;
@@ -28,9 +29,12 @@ final class HtmlTest extends TestCase
 
     /**
      * @covers ::stripTags
+     *
      * @dataProvider stripTagsDataProvider
+     *
+     * @throws Exception
      */
-    public function testStripTags(string $html, string $expectedResult, ?string $allowedTags = null): void
+    public function testStripTags(string $html, string $expectedResult, string $allowedTags = null): void
     {
         self::assertSame($expectedResult, $this->subject->stripTags($html, $allowedTags));
     }

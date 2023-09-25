@@ -1,56 +1,37 @@
 <?php
 
+/** @noinspection PhpUnused */
+
 declare(strict_types=1);
 
 namespace ReliqArts;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use JsonException;
 use JsonSerializable;
 
 class Result implements Arrayable, Jsonable, JsonSerializable
 {
     private const KEY_SUCCESS = 'success';
+
     private const KEY_ERROR = 'error';
+
     private const KEY_MESSAGES = 'messages';
+
     private const KEY_EXTRA = 'extra';
-
-    /**
-     * @var bool
-     */
-    private bool $success;
-
-    /**
-     * @var string
-     */
-    private string $error;
-
-    /**
-     * @var string[]
-     */
-    private array $messages;
-
-    /**
-     * @var null|mixed
-     */
-    private $extra;
 
     /**
      * Result constructor.
      *
-     * @param string[] $messages
-     * @param mixed $extra
+     * @param  string[]  $messages
      */
     public function __construct(
-        bool $success = true,
-        string $error = '',
-        array $messages = [],
-        $extra = null
+        private bool $success = true,
+        private string $error = '',
+        private array $messages = [],
+        private mixed $extra = null
     ) {
-        $this->success = $success;
-        $this->error = $error;
-        $this->messages = $messages;
-        $this->extra = $extra;
     }
 
     public function isSuccess(): bool
@@ -80,18 +61,12 @@ class Result implements Arrayable, Jsonable, JsonSerializable
         return $clone;
     }
 
-    /**
-     * @return null|mixed
-     */
-    public function getExtra()
+    public function getExtra(): mixed
     {
         return $this->extra;
     }
 
-    /**
-     * @param mixed $extra
-     */
-    public function setExtra($extra): static
+    public function setExtra(mixed $extra): static
     {
         $clone = clone $this;
         $clone->extra = $extra;
@@ -117,9 +92,6 @@ class Result implements Arrayable, Jsonable, JsonSerializable
         return $this->messages;
     }
 
-    /**
-     * @param string ...$messages
-     */
     public function setMessages(string ...$messages): static
     {
         $clone = clone $this;
@@ -157,10 +129,12 @@ class Result implements Arrayable, Jsonable, JsonSerializable
     /**
      * {@inheritdoc}
      *
-     * @param int $options
+     * @param  int  $options
+     *
+     * @throws JsonException
      */
     public function toJson($options = 0): string
     {
-        return json_encode($this->jsonSerialize(), $options);
+        return json_encode($this->jsonSerialize(), JSON_THROW_ON_ERROR | $options);
     }
 }

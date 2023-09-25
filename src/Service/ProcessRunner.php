@@ -10,13 +10,10 @@ use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-class ProcessRunner implements ProcessRunnerContract
+readonly class ProcessRunner implements ProcessRunnerContract
 {
-    private ProcessHelper $processHelper;
-
-    public function __construct(ProcessHelper $processHelper)
+    public function __construct(private ProcessHelper $processHelper)
     {
-        $this->processHelper = $processHelper;
     }
 
     /**

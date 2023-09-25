@@ -7,6 +7,7 @@ namespace ReliqArts;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Monolog\Handler\StreamHandler;
+use Monolog\Level;
 use Monolog\Logger as MonologLogger;
 use ReliqArts\Console\Command\GenerateSitemap;
 use ReliqArts\Console\Command\NewRelease;
@@ -33,14 +34,15 @@ use ReliqArts\Service\VersionProvider;
 class ServiceProvider extends BaseServiceProvider
 {
     protected const CONFIG_KEY = 'reliqarts-common';
-    protected const ASSET_DIRECTORY = __DIR__ . '/..';
+
+    protected const ASSET_DIRECTORY = __DIR__.'/..';
+
     protected const LOGGER_NAME = 'reliqarts-common-logger';
+
     protected const LOG_FILENAME = self::CONFIG_KEY;
 
     /**
      * List of commands.
-     *
-     * @var array
      */
     protected array $commands = [
         GenerateSitemap::class,
@@ -82,11 +84,11 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(
             LoggerContract::class,
             function (): LoggerContract {
-                $logger = new Logger($this->getLoggerName());
                 $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
-                $logger->pushHandler(new StreamHandler($logFile, MonologLogger::DEBUG));
+                $internalLogger = new MonologLogger($this->getLoggerName());
+                $internalLogger->pushHandler(new StreamHandler($logFile, Level::Debug));
 
-                return $logger;
+                return new Logger($internalLogger);
             }
         );
     }

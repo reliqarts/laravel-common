@@ -6,6 +6,9 @@ namespace ReliqArts\Tests\Unit\Service;
 
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Prophecy\Exception\Doubler\DoubleException;
+use Prophecy\Exception\Doubler\InterfaceNotFoundException;
+use Prophecy\Exception\Prophecy\ObjectProphecyException;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReliqArts\Service\ConfigProvider;
@@ -22,21 +25,17 @@ final class ConfigProviderTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var string
-     */
     private string $namespace;
 
-    /**
-     * @var ObjectProphecy|Repository
-     */
-    private ObjectProphecy $repository;
+    private ObjectProphecy|Repository $repository;
 
-    /**
-     * @var ConfigProvider
-     */
     private ConfigProvider $subject;
 
+    /**
+     * @throws DoubleException
+     * @throws InterfaceNotFoundException
+     * @throws ObjectProphecyException
+     */
     protected function setUp(): void
     {
         parent::setUp();

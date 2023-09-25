@@ -14,42 +14,24 @@ use Throwable;
 class VersionProvider implements VersionProviderContract
 {
     public const DEFAULT_BUILD = '0x1';
+
     public const DEFAULT_VERSION = 'dev';
-
-    /**
-     * @var ConfigProvider
-     */
-    protected ConfigProvider $configProvider;
-
-    /**
-     * @var Filesystem
-     */
-    protected Filesystem $filesystem;
-
-    /**
-     * @var Logger
-     */
-    protected Logger $logger;
-
-    /**
-     * @var string[]
-     */
-    private array $warningsLogged = [];
 
     /**
      * VersionProvider constructor.
      */
-    public function __construct(ConfigProvider $configProvider, Filesystem $filesystem, Logger $logger)
-    {
-        $this->configProvider = $configProvider;
-        $this->filesystem = $filesystem;
-        $this->logger = $logger;
+    public function __construct(
+        protected readonly ConfigProvider $configProvider,
+        protected readonly Filesystem $filesystem,
+        protected readonly Logger $logger,
+        private array $warningsLogged = []
+    ) {
     }
 
     /**
      * Get application build number.
      */
-    public function getBuildNumber(?string $filename = null): string
+    public function getBuildNumber(string $filename = null): string
     {
         $buildFile = $filename ?? $this->configProvider->get('files.build');
 
@@ -72,7 +54,7 @@ class VersionProvider implements VersionProviderContract
     /**
      * Get application version number.
      */
-    public function getVersionNumber(?string $filename = null): string
+    public function getVersionNumber(string $filename = null): string
     {
         $versionFile = $filename ?? $this->configProvider->get('files.version');
 
@@ -97,8 +79,8 @@ class VersionProvider implements VersionProviderContract
      */
     public function getVersion(
         bool $includeBuildNumber = true,
-        ?string $versionFilename = null,
-        ?string $buildFilename = null
+        string $versionFilename = null,
+        string $buildFilename = null
     ): string {
         $version = $this->getVersionNumber($versionFilename);
 

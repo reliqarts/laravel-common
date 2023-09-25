@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace ReliqArts\Tests\Unit\Service;
 
+use Exception;
 use Illuminate\Support\Collection;
 use ReliqArts\Contract\DescendantsFinder as DescendantsFinderContract;
 use ReliqArts\Service\DescendantsFinder;
@@ -21,7 +22,10 @@ final class DescendantsFinderTest extends TestCase
 {
     /**
      * @covers ::findDescendantsInCollection
+     *
      * @dataProvider dataProvider
+     *
+     * @throws Exception
      */
     public function testFindDescendants(
         int $parentId,
