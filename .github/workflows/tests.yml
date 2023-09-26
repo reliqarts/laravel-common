@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Tests
 
 on: [push, pull_request]
 
@@ -38,7 +38,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }} #required
-          file: ./coverage.xml #optional
+          file: ./build/coverage.xml #optional
           flags: unittests #optional
           name: codecov-umbrella #optional
           fail_ci_if_error: true #optional (default = false)

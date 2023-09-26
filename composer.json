@@ -50,8 +50,8 @@
   },
   "scripts": {
     "test": "phpunit",
-    "test:ci": "phpunit --verbose --coverage-clover=coverage.xml",
-    "test:unit": "phpunit --testsuite=Unit --verbose --coverage-clover=coverage.xml"
+    "test:ci": "phpunit --verbose --coverage-clover=./build/coverage.xml",
+    "test:unit": "phpunit --testsuite=Unit --verbose --coverage-clover=./build/coverage.xml"
   },
   "config": {
     "allow-plugins": {
