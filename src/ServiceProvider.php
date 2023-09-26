@@ -23,7 +23,6 @@ use ReliqArts\Contract\VersionProvider as VersionProviderContract;
 use ReliqArts\Helper\Cache;
 use ReliqArts\Helper\Html;
 use ReliqArts\Helper\Process;
-use ReliqArts\Http\Middleware\NonWWW;
 use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Service\DescendantsFinder;
 use ReliqArts\Service\Filesystem;
@@ -50,18 +49,17 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
-     * Bootstrap the application events.
+     * Bootstrap the package services.
      */
     public function boot(): void
     {
         $this->handleConfig();
         $this->handleCommands();
         $this->handleViews();
-        $this->handleMiddleware();
     }
 
     /**
-     * Register the service provider.
+     * Register package services.
      */
     public function register(): void
     {
@@ -155,13 +153,5 @@ class ServiceProvider extends BaseServiceProvider
             [$viewsDirectory => base_path(sprintf('resources/views/vendor/%s', $configKey))],
             sprintf('%s-views', $configKey)
         );
-    }
-
-    private function handleMiddleware(): void
-    {
-        $router = $this->app['router'];
-
-        // Register middleware...
-        $router->middleware('nonWWW', NonWWW::class);
     }
 }
