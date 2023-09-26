@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @noinspection PhpTooManyParametersInspection
- */
-
 declare(strict_types=1);
 
 namespace ReliqArts\Service;
