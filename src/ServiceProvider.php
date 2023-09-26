@@ -77,7 +77,7 @@ class ServiceProvider extends BaseServiceProvider
             ConfigProviderContract::class,
             static fn (): ConfigProviderContract => new ConfigProvider(
                 resolve(ConfigRepository::class),
-                self::CONFIG_KEY
+                $this->getConfigKey()
             )
         );
 
