@@ -1,7 +1,3 @@
 {
-  "preset": "psr12",
-  "exclude": [
-    "resources/refs",
-    "packages"
-  ]
+  "preset": "psr12"
 }
