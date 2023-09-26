@@ -3,7 +3,7 @@
 Reliq Arts' base/common classes and functions for Laravel 6+.
 
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-red.svg?style=flat-square)](http://laravel.com)
-[![Tests](https://github.com/reliqarts/laravel-common/actions/workflows/tests.yml/badge.svg)](https://github.com/reliqarts/laravel-common/actions/workflows/tests.yml)
+[![Test](https://github.com/reliqarts/laravel-common/actions/workflows/test.yml/badge.svg)](https://github.com/reliqarts/laravel-common/actions/workflows/test.yml)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/reliqarts/laravel-common.svg?style=flat-square)](https://scrutinizer-ci.com/g/reliqarts/laravel-common/)
 [![Codecov](https://img.shields.io/codecov/c/github/reliqarts/laravel-common.svg?style=flat-square)](https://codecov.io/gh/reliqarts/laravel-common)
 [![License](https://poser.pugx.org/reliqarts/laravel-common/license?format=flat-square)](https://packagist.org/packages/reliqarts/laravel-common)

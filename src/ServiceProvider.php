@@ -50,7 +50,7 @@ class ServiceProvider extends BaseServiceProvider
     ];
 
     /**
-     * Bootstrap the package services.
+     * Bootstrap the package.
      */
     public function boot(): void
     {
