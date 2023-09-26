@@ -57,7 +57,8 @@
     "allow-plugins": {
       "phpro/grumphp": true,
       "dealerdirect/phpcodesniffer-composer-installer": true
-    }
+    },
+    "sort-packages": true
   },
   "extra": {
     "laravel": {
