@@ -8,4 +8,5 @@ use Psr\Log\LoggerInterface;
 
 interface Logger extends LoggerInterface
 {
+    public function getInternalLogger(): LoggerInterface;
 }

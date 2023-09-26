@@ -6,9 +6,6 @@ namespace ReliqArts;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Monolog\Handler\StreamHandler;
-use Monolog\Level;
-use Monolog\Logger as MonologLogger;
 use ReliqArts\Console\Command\GenerateSitemap;
 use ReliqArts\Console\Command\NewRelease;
 use ReliqArts\Contract\CacheHelper;
@@ -17,19 +14,23 @@ use ReliqArts\Contract\DescendantsFinder as DescendantsFinderContract;
 use ReliqArts\Contract\Filesystem as FilesystemContract;
 use ReliqArts\Contract\HtmlHelper;
 use ReliqArts\Contract\Logger as LoggerContract;
+use ReliqArts\Contract\LoggerFactory as LoggerFactoryContract;
 use ReliqArts\Contract\ProcessHelper;
 use ReliqArts\Contract\ProcessRunner as ProcessRunnerContract;
 use ReliqArts\Contract\VersionProvider as VersionProviderContract;
+use ReliqArts\Factory\LoggerFactory;
 use ReliqArts\Helper\Cache;
 use ReliqArts\Helper\Html;
 use ReliqArts\Helper\Process;
 use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Service\DescendantsFinder;
 use ReliqArts\Service\Filesystem;
-use ReliqArts\Service\Logger;
 use ReliqArts\Service\ProcessRunner;
 use ReliqArts\Service\VersionProvider;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ServiceProvider extends BaseServiceProvider
 {
     protected const CONFIG_KEY = 'reliqarts-common';
@@ -38,7 +39,7 @@ class ServiceProvider extends BaseServiceProvider
 
     protected const LOGGER_NAME = 'reliqarts-common-logger';
 
-    protected const LOG_FILENAME = self::CONFIG_KEY;
+    protected const LOG_FILE_BASENAME = self::CONFIG_KEY;
 
     /**
      * List of commands.
@@ -70,6 +71,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->app->singleton(DescendantsFinderContract::class, DescendantsFinder::class);
         $this->app->singleton(ProcessHelper::class, Process::class);
         $this->app->singleton(ProcessRunnerContract::class, ProcessRunner::class);
+        $this->app->singleton(LoggerFactoryContract::class, LoggerFactory::class);
 
         $this->app->singleton(
             ConfigProviderContract::class,
@@ -81,13 +83,10 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->singleton(
             LoggerContract::class,
-            function (): LoggerContract {
-                $logFile = storage_path(sprintf('logs/%s.log', self::LOG_FILENAME));
-                $internalLogger = new MonologLogger($this->getLoggerName());
-                $internalLogger->pushHandler(new StreamHandler($logFile, Level::Debug));
-
-                return new Logger($internalLogger);
-            }
+            fn (LoggerFactory $loggerFactory): LoggerContract => $loggerFactory->create(
+                $this->getLoggerName(),
+                $this->getLogFileBasename()
+            )
         );
     }
 
@@ -114,9 +113,9 @@ class ServiceProvider extends BaseServiceProvider
         return static::CONFIG_KEY;
     }
 
-    protected function getLogFilename(): string
+    protected function getLogFileBasename(): string
     {
-        return static::LOG_FILENAME;
+        return static::LOG_FILE_BASENAME;
     }
 
     protected function getLoggerName(): string

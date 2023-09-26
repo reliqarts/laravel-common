@@ -8,10 +8,18 @@ use Psr\Log\LoggerInterface;
 use ReliqArts\Contract\Logger as LoggerContract;
 use Stringable;
 
-readonly class Logger implements LoggerContract
+/**
+ * @codeCoverageIgnore
+ */
+final readonly class Logger implements LoggerContract
 {
     public function __construct(private LoggerInterface $internalLogger)
     {
+    }
+
+    public function getInternalLogger(): LoggerInterface
+    {
+        return $this->internalLogger;
     }
 
     public function emergency(Stringable|string $message, array $context = []): void
