@@ -20,10 +20,10 @@
   ],
   "require": {
     "php": "^8.2",
-    "illuminate/support": "8 - 11",
-    "monolog/monolog": "1.24 - 3",
+    "illuminate/support": "^11.0",
+    "monolog/monolog": "^3.5",
     "ext-json": "*",
-    "spatie/laravel-sitemap": "6 - 7",
+    "spatie/laravel-sitemap": "^7.0",
     "anhskohbo/no-captcha": "^3.1||dev-master"
   },
   "require-dev": {
