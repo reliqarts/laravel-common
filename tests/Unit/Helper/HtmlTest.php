@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace ReliqArts\Tests\Unit\Helper;
 
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use ReliqArts\Contract\HtmlHelper;
 use ReliqArts\Helper\Html;
 use ReliqArts\Tests\TestCase;
 
 /**
- * Class HtmlTest.
- *
- * @coversDefaultClass \ReliqArts\Helper\Html
- *
  * @internal
  */
+#[CoversClass(Html::class)]
 final class HtmlTest extends TestCase
 {
     private HtmlHelper $subject;
@@ -28,18 +27,15 @@ final class HtmlTest extends TestCase
     }
 
     /**
-     * @covers ::stripTags
-     *
-     * @dataProvider stripTagsDataProvider
-     *
      * @throws Exception
      */
-    public function testStripTags(string $html, string $expectedResult, string $allowedTags = null): void
+    #[DataProvider('stripTagsDataProvider')]
+    public function testStripTags(string $html, string $expectedResult, ?string $allowedTags = null): void
     {
         self::assertSame($expectedResult, $this->subject->stripTags($html, $allowedTags));
     }
 
-    public function stripTagsDataProvider(): array
+    public static function stripTagsDataProvider(): array
     {
         return [
             'simple' => [

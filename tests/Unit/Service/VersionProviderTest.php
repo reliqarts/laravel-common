@@ -10,6 +10,7 @@ namespace ReliqArts\Tests\Unit\Service;
 
 use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -20,12 +21,9 @@ use ReliqArts\Service\VersionProvider;
 use ReliqArts\Tests\TestCase;
 
 /**
- * Class VersionProviderTest.
- *
- * @coversDefaultClass \ReliqArts\Service\VersionProvider
- *
  * @internal
  */
+#[CoversClass(VersionProvider::class)]
 final class VersionProviderTest extends TestCase
 {
     use ProphecyTrait;
@@ -71,10 +69,6 @@ final class VersionProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::cleanText
-     * @covers ::getBuildNumber
-     *
      * @throws Exception
      */
     public function testGetBuildNumber(): void
@@ -94,11 +88,6 @@ final class VersionProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::cleanText
-     * @covers ::getBuildNumber
-     * @covers ::logWarning
-     *
      * @throws Exception
      */
     public function testGetBuildNumberWhenBuildNumberFileDoesNotExist(): void
@@ -130,10 +119,6 @@ final class VersionProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::cleanText
-     * @covers ::getVersionNumber
-     *
      * @throws Exception
      */
     public function testGetVersionNumber(): void
@@ -153,11 +138,6 @@ final class VersionProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::cleanText
-     * @covers ::getVersionNumber
-     * @covers ::logWarning
-     *
      * @throws Exception
      */
     public function testGetVersionNumberWhenVersionNumberFileDoesNotExist(): void
@@ -189,12 +169,6 @@ final class VersionProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::cleanText
-     * @covers ::getBuildNumber
-     * @covers ::getVersion
-     * @covers ::getVersionNumber
-     *
      * @throws Exception
      */
     public function testGetVersion(): void

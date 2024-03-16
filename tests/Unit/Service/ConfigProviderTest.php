@@ -6,6 +6,7 @@ namespace ReliqArts\Tests\Unit\Service;
 
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Prophecy\Exception\Doubler\DoubleException;
 use Prophecy\Exception\Doubler\InterfaceNotFoundException;
 use Prophecy\Exception\Prophecy\ObjectProphecyException;
@@ -14,13 +15,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use ReliqArts\Service\ConfigProvider;
 use ReliqArts\Tests\TestCase;
 
-/**
- * Class ConfigProviderTest.
- *
- * @coversDefaultClass \ReliqArts\Service\ConfigProvider
- *
- * @internal
- */
+#[CoversClass(ConfigProvider::class)]
 final class ConfigProviderTest extends TestCase
 {
     use ProphecyTrait;
@@ -46,9 +41,6 @@ final class ConfigProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::get
-     *
      * @throws Exception
      */
     public function testGet(): void
@@ -69,9 +61,6 @@ final class ConfigProviderTest extends TestCase
     }
 
     /**
-     * @covers ::__construct
-     * @covers ::get
-     *
      * @throws Exception
      */
     public function testGetWhenKeyIsEmpty(): void
