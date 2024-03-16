@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace ReliqArts\Tests\Unit;
 
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use ReliqArts\Result;
 use ReliqArts\Tests\TestCase;
 
 /**
- * Class ResultTest.
- *
- * @coversDefaultClass \ReliqArts\Result
- *
  * @internal
  */
+#[CoversClass(Result::class)]
 final class ResultTest extends TestCase
 {
     private Result $subject;

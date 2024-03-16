@@ -10,23 +10,20 @@ namespace ReliqArts\Tests\Unit\Service;
 
 use Exception;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use ReliqArts\Contract\DescendantsFinder as DescendantsFinderContract;
 use ReliqArts\Service\DescendantsFinder;
 use ReliqArts\Tests\TestCase;
 use stdClass;
 
-/**
- * @coversDefaultClass \ReliqArts\Service\DescendantsFinder
- */
+#[CoversClass(DescendantsFinder::class)]
 final class DescendantsFinderTest extends TestCase
 {
     /**
-     * @covers ::findDescendantsInCollection
-     *
-     * @dataProvider dataProvider
-     *
      * @throws Exception
      */
+    #[DataProvider('dataProvider')]
     public function testFindDescendants(
         int $parentId,
         Collection $collection,
@@ -44,22 +41,22 @@ final class DescendantsFinderTest extends TestCase
         }
     }
 
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
-        $item1 = $this->getItem(1);
-        $item2 = $this->getItem(2, 1);
-        $item3 = $this->getItem(3, 1);
-        $item4 = $this->getItem(4);
-        $item5 = $this->getItem(5, 4);
-        $item6 = $this->getItem(6, 7);
-        $item7 = $this->getItem(7, 5);
-        $item8 = $this->getItem(8, 7);
-        $item9 = $this->getItem(9, 8, 'foo');
-        $item10 = $this->getItem(10, 9, 'foo');
-        $item11 = $this->getItem(11, 8, 'foo');
-        $item12 = $this->getItem(12, 12);
-        $item13 = $this->getItem(13, 12);
-        $item14 = $this->getItem(14, 14);
+        $item1 = self::getItem(1);
+        $item2 = self::getItem(2, 1);
+        $item3 = self::getItem(3, 1);
+        $item4 = self::getItem(4);
+        $item5 = self::getItem(5, 4);
+        $item6 = self::getItem(6, 7);
+        $item7 = self::getItem(7, 5);
+        $item8 = self::getItem(8, 7);
+        $item9 = self::getItem(9, 8, 'foo');
+        $item10 = self::getItem(10, 9, 'foo');
+        $item11 = self::getItem(11, 8, 'foo');
+        $item12 = self::getItem(12, 12);
+        $item13 = self::getItem(13, 12);
+        $item14 = self::getItem(14, 14);
 
         $collection = collect(
             [
@@ -129,9 +126,9 @@ final class DescendantsFinderTest extends TestCase
         ];
     }
 
-    private function getItem(
+    private static function getItem(
         int $id,
-        int $parentId = null,
+        ?int $parentId = null,
         string $parentIdAttributeName = DescendantsFinderContract::DEFAULT_PARENT_ID_ATTRIBUTE
     ): stdClass {
         $item = new stdClass();
