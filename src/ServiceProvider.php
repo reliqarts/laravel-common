@@ -77,7 +77,7 @@ class ServiceProvider extends BaseServiceProvider
             ConfigProviderContract::class,
             static fn (): ConfigProviderContract => new ConfigProvider(
                 resolve(ConfigRepository::class),
-                $this->getConfigKey()
+                self::getConfigKey()
             )
         );
 
@@ -108,11 +108,6 @@ class ServiceProvider extends BaseServiceProvider
         return static::ASSET_DIRECTORY;
     }
 
-    protected function getConfigKey(): string
-    {
-        return static::CONFIG_KEY;
-    }
-
     protected function getLogFileBasename(): string
     {
         return static::LOG_FILE_BASENAME;
@@ -125,7 +120,7 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function handleConfig(): void
     {
-        $configKey = $this->getConfigKey();
+        $configKey = self::getConfigKey();
         $config = sprintf('%s/config/config.php', $this->getAssetDirectory());
 
         $this->mergeConfigFrom($config, $configKey);
@@ -133,6 +128,11 @@ class ServiceProvider extends BaseServiceProvider
             [$config => config_path(sprintf('%s.php', $configKey))],
             sprintf('%s-config', $configKey)
         );
+    }
+
+    protected static function getConfigKey(): string
+    {
+        return static::CONFIG_KEY;
     }
 
     private function handleCommands(): void
@@ -144,7 +144,7 @@ class ServiceProvider extends BaseServiceProvider
 
     private function handleViews(): void
     {
-        $configKey = $this->getConfigKey();
+        $configKey = self::getConfigKey();
         $viewsDirectory = sprintf('%s/resources/views', $this->getAssetDirectory());
 
         $this->loadViewsFrom($viewsDirectory, $configKey);
