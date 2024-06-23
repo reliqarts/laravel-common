@@ -83,7 +83,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->app->singleton(
             LoggerContract::class,
-            fn (LoggerFactory $loggerFactory): LoggerContract => $loggerFactory->create(
+            fn (): LoggerContract => resolve(LoggerFactory::class)->create(
                 $this->getLoggerName(),
                 $this->getLogFileBasename()
             )
