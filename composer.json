@@ -20,7 +20,7 @@
   ],
   "require": {
     "php": "^8.2",
-    "illuminate/support": "^11.0",
+    "illuminate/support": "^11.0||^12.0",
     "monolog/monolog": "^3.5",
     "ext-json": "*",
     "spatie/laravel-sitemap": "^7.0",
@@ -31,7 +31,7 @@
     "phpunit/phpunit": "^11.0",
     "phpro/grumphp": "^2.0",
     "phpspec/prophecy-phpunit": "^2.0",
-    "orchestra/testbench": "^9.0",
+    "orchestra/testbench": "^9.0||^10.0",
     "laravel/pint": "^1.13",
     "yieldstudio/grumphp-laravel-pint": "^1.0"
   },
