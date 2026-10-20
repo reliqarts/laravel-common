@@ -1,6 +1,6 @@
 # Laravel Common
 
-Reliq Arts' base/common classes and functions for Laravel 6+.
+Reliq Arts' base/common classes and functions for Laravel 11, 12, and 13.
 
 [![Built For Laravel](https://img.shields.io/badge/built%20for-laravel-red.svg?style=flat-square)](http://laravel.com)
 [![Test](https://github.com/reliqarts/laravel-common/actions/workflows/test.yml/badge.svg)](https://github.com/reliqarts/laravel-common/actions/workflows/test.yml)
